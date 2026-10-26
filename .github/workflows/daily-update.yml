@@ -2,7 +2,7 @@ name: Daily data refresh
 
 on:
   schedule:
-    - cron: "30 1 * * *"   # every day at 07:00 IST
+      - cron: "30 1,7,13,19 * * *"   # 07:00, 13:00, 19:00 and 01:00 IST
   workflow_dispatch:        # lets you press "Run workflow" any time
 
 permissions:
