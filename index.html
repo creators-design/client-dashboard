@@ -331,6 +331,7 @@ window.dash = (function () {
           <thead><tr>
             <th data-field="client">Client</th>
             <th data-field="type">Format</th>
+            <th data-field="url">Link</th>
             <th data-field="title">Post</th>
             <th data-field="published">Published</th>
             <th data-field="views">Views</th>
@@ -393,6 +394,7 @@ window.dash = (function () {
         <table class="sm-table" id="yt-top-table" data-source="content" data-row-key="id">
           <thead><tr>
             <th data-field="client">Client</th>
+            <th data-field="url">Link</th>
             <th data-field="title">Video</th>
             <th data-field="published">Published</th>
             <th data-field="views">Views</th>
@@ -416,7 +418,7 @@ window.dash = (function () {
       <div class="sm-block-head">
         <div>
           <h2 class="sm-h2">All posts and videos</h2>
-          <p class="sm-note">Instagram posts published in the period, and YouTube videos published in it or among each channel's five most-viewed in it. Click a column to sort.</p>
+          <p class="sm-note">Instagram posts published in the period, and YouTube videos published in it or among each channel's ten most-viewed in it. Click a column to sort.</p>
         </div>
         <input type="search" id="content-search" class="sm-search" placeholder="Search titles" aria-label="Search content">
       </div>
@@ -426,6 +428,7 @@ window.dash = (function () {
             <th data-field="client"><button type="button" data-csort="client">Client</button></th>
             <th data-field="platform"><button type="button" data-csort="platform">Platform</button></th>
             <th data-field="type"><button type="button" data-csort="type">Type</button></th>
+            <th data-field="url">Link</th>
             <th data-field="title"><button type="button" data-csort="title">Title</button></th>
             <th data-field="published"><button type="button" data-csort="published">Published</button></th>
             <th data-field="views"><button type="button" data-csort="views">Views</button></th>
@@ -500,16 +503,28 @@ window.dash = (function () {
   .sm-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: var(--cds-gap-sm); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
   .sm-legend span { display: inline-flex; align-items: center; gap: 6px; }
 
-  .sm-tablewrap { overflow: auto; max-height: 30rem; }
-  .sm-tall { max-height: 40rem; }
-  .sm-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: var(--cds-font-size-caption); }
-  .sm-table th, .sm-table td { text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--color-border-line); white-space: nowrap; }
-  .sm-table th { position: sticky; top: 0; background: var(--color-panel); z-index: 1; font-weight: var(--cds-font-weight-medium); }
+  .sm-tablewrap { overflow: auto; max-height: 32rem; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg); }
+  .sm-tall { max-height: 42rem; }
+  .sm-table { width: 100%; border-collapse: separate; border-spacing: 0; font-variant-numeric: tabular-nums; font-size: var(--cds-font-size-caption); }
+  .sm-table th, .sm-table td { text-align: right; padding: 10px 12px; border-bottom: 1px solid var(--color-border-line); border-right: 1px solid var(--color-border-line); white-space: nowrap; vertical-align: middle; }
+  .sm-table th:last-child, .sm-table td:last-child { border-right: none; }
+  .sm-table tbody tr:last-child td { border-bottom: none; }
+  .sm-table thead th { position: sticky; top: 0; z-index: 2; background: var(--color-panel); font-weight: var(--cds-font-weight-medium); color: var(--color-fg); border-bottom: 2px solid var(--color-border-line); }
+  .sm-table tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--color-panel) 55%, var(--color-bg)); }
+  .sm-table tbody tr:hover td { background: color-mix(in srgb, var(--color-fg) 6%, var(--color-panel)); }
+  .sm-table th:first-child, .sm-table td:first-child { position: sticky; left: 0; z-index: 1; background: var(--color-panel); font-weight: var(--cds-font-weight-medium); }
+  .sm-table thead th:first-child { z-index: 3; }
   .sm-table th button { all: unset; cursor: pointer; font-weight: var(--cds-font-weight-medium); color: var(--color-fg); }
   .sm-table th[aria-sort] button::after { content: ' ↓'; color: var(--color-fg-muted); }
   .sm-table th[aria-sort="ascending"] button::after { content: ' ↑'; }
   .sm-table .l { text-align: left; }
-  .sm-table td.t { white-space: normal; min-width: 14rem; max-width: 26rem; text-align: left; }
+  .sm-table td.t { white-space: normal; min-width: 16rem; max-width: 28rem; text-align: left; line-height: 1.35; }
+  .sm-badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; font-weight: var(--cds-font-weight-medium); white-space: nowrap; }
+  .sm-badge.ig { background: color-mix(in srgb, #d6249f 16%, transparent); color: color-mix(in srgb, #d6249f 75%, var(--color-fg)); }
+  .sm-badge.yt { background: color-mix(in srgb, #e62117 16%, transparent); color: color-mix(in srgb, #e62117 75%, var(--color-fg)); }
+  .sm-type { display: inline-block; padding: 2px 8px; border-radius: 6px; border: 1px solid var(--color-border-line); font-size: 0.75rem; color: var(--color-fg-muted); }
+  .sm-link { color: var(--color-fg); font-weight: var(--cds-font-weight-medium); text-decoration: none; padding: 3px 9px; border: 1px solid var(--color-border-line); border-radius: 6px; white-space: nowrap; }
+  .sm-link:hover { background: color-mix(in srgb, var(--color-fg) 8%, transparent); }
   .sm-count { margin-top: var(--cds-gap-sm); }
 
   .sm-latest { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--cds-gap-md); min-height: 9rem; }
@@ -649,7 +664,7 @@ window.dash = (function () {
         if (!client) return;
         const views = n(r.media_views);
         const eng = n(r.media_like_count) + n(r.media_comments_count) + n(r.media_shares) + n(r.media_saved);
-        rows.push({ id: 'ig-' + r.media_id, client: client, platform: 'Instagram', account: client + ' · Instagram', type: TYPES[r.media_type] || r.media_type,
+        rows.push({ id: 'ig-' + r.media_id, client: client, platform: 'Instagram', account: client + ' · Instagram', type: TYPES[r.media_type] || r.media_type, url: r.media_permalink || null,
           title: cut(r.media_caption) || '(no caption)', published: String(r.timestamp).slice(0, 10),
           views: views, reach: n(r.media_reach), likes: n(r.media_like_count), comments: n(r.media_comments_count),
           shares: n(r.media_shares), saves: n(r.media_saved), engagement_rate: views ? eng / views : null,
@@ -669,7 +684,7 @@ window.dash = (function () {
           const views = n(v.views);
           const likes = Math.max(n(v.likes), 0);
           const eng = likes + n(v.comments) + n(v.shares);
-          rows.push({ id: 'yt-' + v.video, client: YT[ch][0], platform: 'YouTube', account: YT[ch][0] + ' · ' + YT[ch][1], type: TYPES[v.creator_content_type] || 'Video',
+          rows.push({ id: 'yt-' + v.video, client: YT[ch][0], platform: 'YouTube', account: YT[ch][0] + ' · ' + YT[ch][1], type: TYPES[v.creator_content_type] || 'Video', url: (v.creator_content_type === 'shorts' ? 'https://www.youtube.com/shorts/' : 'https://www.youtube.com/watch?v=') + v.video,
             title: cut(v.video_title), published: String(v.published_at).slice(0, 10),
             views: views, reach: null, likes: likes, comments: n(v.comments), shares: n(v.shares), saves: null,
             engagement_rate: views ? eng / views : null, new_followers: n(v.subscribers_gained),
@@ -959,14 +974,29 @@ window.dash = (function () {
         cols.forEach((f) => {
           const td = document.createElement('td');
           if (f === 'title') td.className = 't';
-          else if (TEXT_FIELDS.includes(f)) td.className = 'l';
-          td.textContent = cell(f, r[f]);
+          else if (TEXT_FIELDS.includes(f) || f === 'url') td.className = 'l';
+          if (f === 'url') {
+            if (r.url) {
+              const a = document.createElement('a');
+              a.href = r.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.className = 'sm-link';
+              a.textContent = r.platform === 'Instagram' ? 'Open post ↗' : 'Watch ↗';
+              td.append(a);
+            } else td.textContent = '—';
+          } else if (f === 'platform') {
+            const b = document.createElement('span');
+            const label = r.account ? r.account.split(' · ')[1] : r.platform;
+            b.className = 'sm-badge ' + (r.platform === 'Instagram' ? 'ig' : 'yt');
+            b.textContent = label;
+            td.append(b);
+          } else if (f === 'type' && r.type) {
+            const b = document.createElement('span'); b.className = 'sm-type'; b.textContent = r.type; td.append(b);
+          } else td.textContent = cell(f, r[f]);
           tr.append(td);
         });
         return tr;
       }));
       table.querySelectorAll('thead th').forEach((th) => {
-        th.classList.toggle('l', TEXT_FIELDS.includes(th.dataset.field) || th.dataset.field === 'title');
+        th.classList.toggle('l', TEXT_FIELDS.includes(th.dataset.field) || th.dataset.field === 'title' || th.dataset.field === 'url');
       });
     }
     function tableState(table, cols, status) {
@@ -1094,7 +1124,7 @@ window.dash = (function () {
     }
 
     // ---------- Instagram ----------
-    const IG_TOP_COLS = ['client', 'type', 'title', 'published', 'views', 'reach', 'likes', 'comments', 'saves', 'shares', 'engagement_rate', 'new_followers'];
+    const IG_TOP_COLS = ['client', 'type', 'url', 'title', 'published', 'views', 'reach', 'likes', 'comments', 'saves', 'shares', 'engagement_rate', 'new_followers'];
     const FMT_COLS = ['client', 'type', 'posts', 'avg_views', 'avg_reach', 'engagement_rate', 'saves', 'shares'];
     const igOn = () => params().platforms.includes('Instagram');
     function drawInstagram() {
@@ -1140,7 +1170,7 @@ window.dash = (function () {
     }
 
     // ---------- YouTube ----------
-    const YT_TOP_COLS = ['client', 'title', 'published', 'views', 'avg_view_pct', 'avg_view_duration', 'likes', 'comments', 'shares', 'engagement_rate', 'new_followers'];
+    const YT_TOP_COLS = ['client', 'url', 'title', 'published', 'views', 'avg_view_pct', 'avg_view_duration', 'likes', 'comments', 'shares', 'engagement_rate', 'new_followers'];
     const ytOn = () => params().platforms.includes('YouTube');
     function drawYouTube() {
       const a = dash.data('accounts'), d = dash.data('daily'), c = dash.data('content');
@@ -1256,7 +1286,7 @@ window.dash = (function () {
     }
 
     // ---------- All content ----------
-    const CON_COLS = ['client', 'platform', 'type', 'title', 'published', 'views', 'reach', 'likes', 'comments', 'shares', 'saves', 'engagement_rate', 'new_followers', 'avg_view_pct', 'avg_view_duration'];
+    const CON_COLS = ['client', 'platform', 'type', 'url', 'title', 'published', 'views', 'reach', 'likes', 'comments', 'shares', 'saves', 'engagement_rate', 'new_followers', 'avg_view_pct', 'avg_view_duration'];
     const conSort = { key: 'views', dir: 'desc' };
     const conTable = document.getElementById('content-table');
     const search = document.getElementById('content-search');
