@@ -39,11 +39,33 @@
   .snap-note b { color: var(--color-fg); font-weight: var(--cds-font-weight-medium); }
   .dash-skeleton { background: var(--color-border-line) !important; color: transparent !important; border-radius: 6px; }
   button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+  .sm-cat { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; font-weight: var(--cds-font-weight-medium); vertical-align: middle; border: 1px solid var(--color-border-line); }
+  .sm-cat.brand { background: color-mix(in srgb, #7b4fc9 16%, transparent); color: color-mix(in srgb, #7b4fc9 70%, var(--color-fg)); border-color: transparent; }
+  .sm-cat.creator { background: color-mix(in srgb, #1f8a70 16%, transparent); color: color-mix(in srgb, #1f8a70 70%, var(--color-fg)); border-color: transparent; }
+  .sm-group-h { grid-column: 1 / -1; margin: 4px 0 -4px; font-size: var(--cds-font-size-caption); text-transform: uppercase; letter-spacing: .06em; color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); }
+  .sm-verdict { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: var(--cds-font-weight-medium); }
+  .sm-verdict.v-hit { background: color-mix(in srgb, var(--color-ok) 22%, transparent); color: var(--color-ok); }
+  .sm-verdict.v-above { background: color-mix(in srgb, var(--color-ok) 10%, transparent); color: var(--color-ok); }
+  .sm-verdict.v-typical { background: color-mix(in srgb, var(--color-fg) 8%, transparent); color: var(--color-fg-muted); }
+  .sm-verdict.v-below { background: color-mix(in srgb, var(--color-bad) 14%, transparent); color: var(--color-bad); }
+  .sm-dd-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: var(--cds-gap-md); }
+  .sm-dd-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0 0 4px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .sm-dd-acc { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--cds-gap-md); }
+  .sm-acc-card { border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-md); display: flex; flex-direction: column; gap: 8px; }
+  .sm-acc-from { font-family: var(--font-anthropic-serif); font-size: 1.35rem; font-variant-numeric: tabular-nums; }
+  .sm-acc-from .arrow { color: var(--color-fg-muted); margin: 0 6px; }
+  .sm-ins { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; min-height: 4rem; }
+  .sm-ins li { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: var(--cds-radius); background: var(--color-bg); border: 1px solid var(--color-border-line); line-height: 1.45; font-size: var(--cds-font-size-body); }
+  .sm-ins li::before { content: ''; flex: none; width: 8px; height: 8px; margin-top: 7px; border-radius: 50%; background: var(--color-fg-muted); }
+  .sm-ins li.good::before { background: var(--color-ok); }
+  .sm-ins li.bad::before { background: var(--color-bad); }
+  .sm-ins li .k { font-weight: var(--cds-font-weight-medium); }
+  .sm-x { font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-title); line-height: 1; }
 </style>
 <script>
 window.dash = (function () {
   var DATA = null, LOAD_ERR = null;
-  var DEFAULTS = {"range":"last_30d","clients":["Sandeep Das","Dr. Tarang Krishna","Ajith Karimpana","CoinDCX","World Governments Summit"],"platforms":["Instagram","YouTube"],"metric":"followers_gained","igmetric":"reach","ytmetric":"views"};
+  var DEFAULTS = {"range":"last_30d","clients":["Sandeep Das","Dr. Tarang Krishna","Ajith Karimpana","CoinDCX","World Governments Summit"],"platforms":["Instagram","YouTube"],"categories":["Brand","Creator"],"focus":"World Governments Summit","metric":"followers_gained","igmetric":"reach","ytmetric":"views"};
   var params = JSON.parse(JSON.stringify(DEFAULTS));
   var calcs = {}, listeners = [], cache = {};
   var DAYS = { last_7d: 7, last_14d: 14, last_30d: 30 };
@@ -120,6 +142,7 @@ window.dash = (function () {
 
   <section class="sm-filters" id="filters" aria-label="Filters">
     <div class="sm-fgroup"><span class="sm-flabel">Clients</span><div class="sm-checks" id="f-clients"></div></div>
+    <div class="sm-fgroup"><span class="sm-flabel">Type</span><div class="sm-checks" id="f-cats"></div></div>
     <div class="sm-fgroup"><span class="sm-flabel">Platforms</span><div class="sm-checks" id="f-platforms"></div></div>
     <div class="sm-fgroup">
       <label class="sm-flabel" for="f-range">Period</label>
@@ -135,7 +158,7 @@ window.dash = (function () {
   <nav class="sm-tabs" role="tablist" aria-label="Pages">
     <button type="button" role="tab" data-tab="overview">Overview</button>
     <button type="button" role="tab" data-tab="growth">Client growth</button>
-    <button type="button" role="tab" data-tab="wgs">WGS</button>
+    <button type="button" role="tab" data-tab="wgs">WGS deep dive</button>
     <button type="button" role="tab" data-tab="instagram">Instagram</button>
     <button type="button" role="tab" data-tab="youtube">YouTube</button>
     <button type="button" role="tab" data-tab="content">All content</button>
@@ -195,6 +218,7 @@ window.dash = (function () {
         <table class="sm-table" id="accounts-table" data-source="accounts" data-row-key="id">
           <thead><tr>
             <th data-field="client"><button type="button" data-sort="client">Client</button></th>
+            <th data-field="category"><button type="button" data-sort="category">Type</button></th>
             <th data-field="platform"><button type="button" data-sort="platform">Platform</button></th>
             <th data-field="followers"><button type="button" data-sort="followers">Followers</button></th>
             <th data-field="followers_gained"><button type="button" data-sort="followers_gained">New</button></th>
@@ -265,9 +289,16 @@ window.dash = (function () {
   </section>
 
 
-  <!-- ================= WGS ================= -->
+  <!-- ================= WGS / DEEP DIVE ================= -->
   <section class="sm-page" id="wgs" role="tabpanel" hidden>
-    <p class="sm-note sm-lead">World Governments Summit in one place: Instagram @worldgovsummit and the World Governments Summit YouTube channel. Uses the period you pick at the top; the client and platform tick boxes don't apply on this page.</p>
+    <div class="sm-dd-head">
+      <div>
+        <h2 class="sm-dd-title"><span id="dd-title">World Governments Summit</span> <span class="sm-cat" id="dd-cat">Brand</span></h2>
+        <p class="sm-note">A full read-out for one account holder: where the audience started and where it is now, what's working, what isn't, and how every post scored against its own account's typical post. Uses the period at the top; the other tick boxes don't apply here.</p>
+      </div>
+      <label class="sm-inline">Showing <select id="f-focus" class="sm-select"></select></label>
+    </div>
+
     <div class="sm-kpis">
       <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Total audience</div><div class="sm-kv" data-k="wgs_aud">—</div><div class="sm-ks">Instagram + YouTube now</div></div>
       <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Net new followers</div><div class="sm-kv" data-k="wgs_net">—</div><div class="sm-ks">In the period</div></div>
@@ -280,6 +311,19 @@ window.dash = (function () {
       <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Instagram reach</div><div class="sm-kv" data-k="wgs_reach">—</div><div class="sm-ks">Accounts reached, summed daily</div></div>
       <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">YouTube watch time</div><div class="sm-kv" data-k="wgs_hours">—</div><div class="sm-ks">Hours watched</div></div>
     </div>
+
+    <section class="sm-card">
+      <h2 class="sm-h2">Audience: where it started and where it is now</h2>
+      <p class="sm-note">Start = followers now minus net new in the period. Pace and the 30-day estimate assume the current daily rate holds.</p>
+      <div class="sm-dd-acc" id="dd-acc" data-source="account_growth"></div>
+    </section>
+
+    <section class="sm-card">
+      <h2 class="sm-h2">What's working, what isn't</h2>
+      <p class="sm-note">Read automatically from this period's numbers. “Typical” means the account's median post, so each account is compared with itself. The newest posts have had less time to collect views.</p>
+      <ul class="sm-ins" id="dd-ins" data-source="scored formats account_growth"></ul>
+    </section>
+
     <div class="sm-grid2">
       <section class="sm-card">
         <h2 class="sm-h2">New followers per day</h2>
@@ -294,20 +338,45 @@ window.dash = (function () {
         <div class="sm-legend" id="wgs-views-legend"></div>
       </section>
     </div>
+
+    <h2 class="sm-h2 sm-sec">Latest post and video, against typical</h2>
+    <div class="sm-latest" id="dd-latest" data-source="scored"></div>
+
+    <section class="sm-card">
+      <h2 class="sm-h2">Format scorecard</h2>
+      <p class="sm-note">Which formats pull their weight. Save rate and share rate are % of people reached (Instagram) or views (YouTube shares); Followers / 1K is new followers per 1,000 reached (Instagram) or viewed (YouTube); Instagram doesn't report follows for Reels, so that cell is blank for Reels.</p>
+      <div class="sm-tablewrap"><table class="sm-table" id="dd-formats" data-source="formats" data-row-key="key"><thead><tr><th data-field="account">Account</th><th data-field="type">Format</th><th data-field="posts">Posts</th><th data-field="median_views">Typical views</th><th data-field="median_reach">Typical reach</th><th data-field="avg_views">Avg views</th><th data-field="engagement_rate">Eng. rate</th><th data-field="save_rate">Save rate</th><th data-field="share_rate">Share rate</th><th data-field="followers_per_1k">Followers / 1K</th><th data-field="avg_view_pct">Avg % viewed</th></tr></thead><tbody></tbody></table></div>
+    </section>
+
+    <div class="sm-grid2">
+      <section class="sm-card">
+        <h2 class="sm-h2">Best day to post</h2>
+        <p class="sm-note">How a post on each day usually does against the account's typical post (median “× typical”, India time). Brackets: number of posts.</p>
+        <div class="sm-chart sm-chart-short" id="dd-day-chart" data-source="scored"></div>
+      </section>
+      <section class="sm-card">
+        <h2 class="sm-h2">Best time of day</h2>
+        <p class="sm-note">Median “× typical” by the time posts went out (India time). Brackets: number of posts.</p>
+        <div class="sm-chart sm-chart-short" id="dd-time-chart" data-source="scored"></div>
+      </section>
+    </div>
+
     <section class="sm-card">
       <h2 class="sm-h2">Instagram vs YouTube</h2>
-      <p class="sm-note">Both World Governments Summit accounts side by side for the period.</p>
-      <div class="sm-tablewrap"><table class="sm-table" id="wgs-acc-table" data-source="accounts" data-row-key="id"><thead><tr><th data-field="client">Client</th><th data-field="platform">Platform</th><th data-field="followers">Followers</th><th data-field="followers_gained">New</th><th data-field="followers_lost">Lost</th><th data-field="net_followers">Net</th><th data-field="growth_rate">Growth</th><th data-field="views">Views</th><th data-field="reach">Reach</th><th data-field="engagements">Engagements</th><th data-field="engagement_rate">Eng. rate</th><th data-field="posts">Posts</th><th data-field="views_per_post">Views/post</th><th data-field="watch_hours">Watch hrs</th><th data-field="avg_view_duration">Avg view</th><th data-field="lifetime_posts">Lifetime posts</th></tr></thead><tbody></tbody></table></div>
+      <p class="sm-note">Both accounts side by side for the period.</p>
+      <div class="sm-tablewrap"><table class="sm-table" id="wgs-acc-table" data-source="accounts" data-row-key="id"><thead><tr><th data-field="client">Client</th><th data-field="category">Type</th><th data-field="platform">Platform</th><th data-field="followers">Followers</th><th data-field="followers_gained">New</th><th data-field="followers_lost">Lost</th><th data-field="net_followers">Net</th><th data-field="growth_rate">Growth</th><th data-field="views">Views</th><th data-field="reach">Reach</th><th data-field="engagements">Engagements</th><th data-field="engagement_rate">Eng. rate</th><th data-field="posts">Posts</th><th data-field="views_per_post">Views/post</th><th data-field="watch_hours">Watch hrs</th><th data-field="avg_view_duration">Avg view</th><th data-field="lifetime_posts">Lifetime posts</th></tr></thead><tbody></tbody></table></div>
     </section>
+
     <section class="sm-card">
-      <h2 class="sm-h2">Top 10 Instagram posts</h2>
-      <p class="sm-note">Posts published in the period, by views.</p>
-      <div class="sm-tablewrap"><table class="sm-table" id="wgs-ig-table" data-source="content" data-row-key="id"><thead><tr><th data-field="client">Client</th><th data-field="type">Format</th><th data-field="url">Link</th><th data-field="title">Post</th><th data-field="published">Published</th><th data-field="views">Views</th><th data-field="reach">Reach</th><th data-field="likes">Likes</th><th data-field="comments">Comments</th><th data-field="saves">Saves</th><th data-field="shares">Shares</th><th data-field="engagement_rate">Eng. rate</th><th data-field="new_followers">Follows</th></tr></thead><tbody></tbody></table></div>
-    </section>
-    <section class="sm-card">
-      <h2 class="sm-h2">Top 10 YouTube videos</h2>
-      <p class="sm-note">By views earned in the period, including older videos still getting views.</p>
-      <div class="sm-tablewrap"><table class="sm-table" id="wgs-yt-table" data-source="content" data-row-key="id"><thead><tr><th data-field="client">Client</th><th data-field="type">Type</th><th data-field="url">Link</th><th data-field="title">Video</th><th data-field="published">Published</th><th data-field="views">Views</th><th data-field="avg_view_pct">Avg % viewed</th><th data-field="avg_view_duration">Avg view</th><th data-field="likes">Likes</th><th data-field="comments">Comments</th><th data-field="shares">Shares</th><th data-field="engagement_rate">Eng. rate</th><th data-field="new_followers">Subs gained</th></tr></thead><tbody></tbody></table></div>
+      <div class="sm-block-head">
+        <div>
+          <h2 class="sm-h2">Every post and video, scored</h2>
+          <p class="sm-note">Published in the period. Verdict: Hit = 2× typical or more; Above = 1.2×+; Typical = 0.8–1.2×; Below = under 0.8×. Click a column to sort.</p>
+        </div>
+        <input type="search" id="dd-search" class="sm-search" placeholder="Search titles" aria-label="Search posts">
+      </div>
+      <div class="sm-tablewrap sm-tall"><table class="sm-table" id="dd-posts" data-source="scored" data-row-key="id"><thead><tr><th data-field="platform"><button type="button" data-dsort="platform">Platform</button></th><th data-field="type"><button type="button" data-dsort="type">Type</button></th><th data-field="url"><button type="button" data-dsort="url">Link</button></th><th data-field="title"><button type="button" data-dsort="title">Title</button></th><th data-field="published"><button type="button" data-dsort="published">Published</button></th><th data-field="views"><button type="button" data-dsort="views">Views</button></th><th data-field="views_per_day"><button type="button" data-dsort="views_per_day">Views/day</button></th><th data-field="vs_typical"><button type="button" data-dsort="vs_typical">vs typical</button></th><th data-field="verdict"><button type="button" data-dsort="verdict">Verdict</button></th><th data-field="engagement_rate"><button type="button" data-dsort="engagement_rate">Eng. rate</button></th><th data-field="save_rate"><button type="button" data-dsort="save_rate">Save rate</button></th><th data-field="share_rate"><button type="button" data-dsort="share_rate">Share rate</button></th><th data-field="new_followers"><button type="button" data-dsort="new_followers">New followers</button></th><th data-field="followers_per_1k"><button type="button" data-dsort="followers_per_1k">Followers / 1K</button></th><th data-field="avg_view_pct"><button type="button" data-dsort="avg_view_pct">Avg % viewed</button></th><th data-field="weekday"><button type="button" data-dsort="weekday">Day</button></th><th data-field="time_band"><button type="button" data-dsort="time_band">Time (IST)</button></th></tr></thead><tbody></tbody></table></div>
+      <p class="sm-note sm-count" id="dd-count"></p>
     </section>
   </section>
 
@@ -624,7 +693,7 @@ window.dash = (function () {
         const posts = ig_media.filter((r) => r.username === p.username).length;
         const gained = sum(d, 'follower_count_1d');
         const followers = n(p.followers_count);
-        rows.push({ id: m[0], client: m[1], platform: 'Instagram', account: m[1] + ' · Instagram', followers: followers, lifetime_posts: n(p.media_count), posts: posts,
+        rows.push({ id: m[0], client: m[1], category: ['World Governments Summit', 'CoinDCX'].includes(m[1]) ? 'Brand' : 'Creator', platform: 'Instagram', account: m[1] + ' · Instagram', followers: followers, lifetime_posts: n(p.media_count), posts: posts,
           followers_gained: gained, followers_lost: null, net_followers: gained,
           growth_rate: followers - gained > 0 ? gained / (followers - gained) : null,
           views: views, reach: sum(d, 'reach_1d'), engagements: eng, engagement_rate: views ? eng / views : null,
@@ -645,7 +714,7 @@ window.dash = (function () {
         const gained = shortsOnly ? sum(d, 'subscribers_gained') : sum(s, 'subscribers_gained_channel');
         const lost = shortsOnly ? sum(d, 'subscribers_lost') : sum(s, 'subscribers_lost_channel');
         const followers = n(p.subscriber_count);
-        rows.push({ id: m[0], client: m[1], platform: 'YouTube', account: m[1] + ' · ' + m[2], followers: followers, lifetime_posts: n(p.video_count), posts: posts,
+        rows.push({ id: m[0], client: m[1], category: ['World Governments Summit', 'CoinDCX'].includes(m[1]) ? 'Brand' : 'Creator', platform: 'YouTube', account: m[1] + ' · ' + m[2], followers: followers, lifetime_posts: n(p.video_count), posts: posts,
           followers_gained: gained, followers_lost: lost, net_followers: gained - lost,
           growth_rate: followers - (gained - lost) > 0 ? (gained - lost) / (followers - (gained - lost)) : null,
           views: views, reach: null, engagements: eng, engagement_rate: views ? eng / views : null,
@@ -713,7 +782,7 @@ window.dash = (function () {
         const views = n(r.media_views);
         const eng = n(r.media_like_count) + n(r.media_comments_count) + n(r.media_shares) + n(r.media_saved);
         rows.push({ id: 'ig-' + r.media_id, client: client, platform: 'Instagram', account: client + ' · Instagram', type: TYPES[r.media_type] || r.media_type, url: r.media_permalink || null,
-          title: cut(r.media_caption) || '(no caption)', published: String(r.timestamp).slice(0, 10),
+          title: cut(r.media_caption) || '(no caption)', published: String(r.timestamp).slice(0, 10), published_at: String(r.timestamp), in_period: true,
           views: views, reach: n(r.media_reach), likes: n(r.media_like_count), comments: n(r.media_comments_count),
           shares: n(r.media_shares), saves: n(r.media_saved), engagement_rate: views ? eng / views : null,
           new_followers: r.media_follows == null ? null : n(r.media_follows), avg_view_pct: null, avg_view_duration: null });
@@ -733,7 +802,7 @@ window.dash = (function () {
           const likes = Math.max(n(v.likes), 0);
           const eng = likes + n(v.comments) + n(v.shares);
           rows.push({ id: 'yt-' + v.video, client: YT[ch][0], platform: 'YouTube', account: YT[ch][0] + ' · ' + YT[ch][1], type: TYPES[v.creator_content_type] || 'Video', url: (v.creator_content_type === 'shorts' ? 'https://www.youtube.com/shorts/' : 'https://www.youtube.com/watch?v=') + v.video,
-            title: cut(v.video_title), published: String(v.published_at).slice(0, 10),
+            title: cut(v.video_title), published: String(v.published_at).slice(0, 10), published_at: String(v.published_at), in_period: String(v.published_at).slice(0, 10) >= start,
             views: views, reach: null, likes: likes, comments: n(v.comments), shares: n(v.shares), saves: null,
             engagement_rate: views ? eng / views : null, new_followers: n(v.subscribers_gained),
             avg_view_pct: v.average_view_percentage == null ? null : n(v.average_view_percentage) / 100,
@@ -777,7 +846,7 @@ window.dash = (function () {
         const second = days.slice(days.length - half).reduce((s, d) => s + d.net_followers, 0);
         const start = a.followers - a.net_followers;
         const perDay = days.length ? net / days.length : null;
-        return { id: a.id, client: a.client, platform: a.platform, account: a.account,
+        return { id: a.id, client: a.client, category: a.category, platform: a.platform, account: a.account,
           start_followers: start, followers: a.followers, net_followers: a.net_followers,
           growth_rate: start > 0 ? a.net_followers / start : null,
           per_day: perDay, projected_30d: perDay == null ? null : perDay * 30,
@@ -791,27 +860,93 @@ window.dash = (function () {
   dash.calc('client_growth', {
     inputs: ['account_growth', 'accounts'],
     title: 'Growth per client',
-    description: 'Each client’s accounts added together: audience now and at the start, net new, growth %, net new per day, a 30-day projection, momentum, views and engagement rate; ranked by growth %.',
+    description: 'Each client’s accounts added together: audience now and at the start, net new, growth %, net new per day, a 30-day projection, momentum, views and engagement rate; ranked by growth % within brands and within creators.',
     fn: (account_growth, accounts) => {
       const g = {};
       account_growth.forEach((a) => {
         const acc = accounts.find((x) => x.id === a.id) || {};
-        const o = g[a.client] || (g[a.client] = { client: a.client, accounts: [], followers: 0, start_followers: 0, net_followers: 0, per_day: 0, first_half: 0, second_half: 0, views: 0, engagements: 0, best: null });
+        const o = g[a.client] || (g[a.client] = { client: a.client, category: a.category, accounts: [], followers: 0, start_followers: 0, net_followers: 0, per_day: 0, first_half: 0, second_half: 0, views: 0, engagements: 0, best: null });
         o.accounts.push(a.account.split(' · ')[1]);
         o.followers += a.followers; o.start_followers += a.start_followers; o.net_followers += a.net_followers;
         o.per_day += a.per_day || 0; o.first_half += a.first_half; o.second_half += a.second_half;
         o.views += Number(acc.views) || 0; o.engagements += Number(acc.engagements) || 0;
         if (a.growth_rate != null && (!o.best || a.growth_rate > o.best.rate)) o.best = { name: a.account.split(' · ')[1], rate: a.growth_rate };
       });
-      const rows = Object.values(g).map((o) => ({ client: o.client, platforms: o.accounts.join(', '),
+      const rows = Object.values(g).map((o) => ({ client: o.client, category: o.category, platforms: o.accounts.join(', '),
         followers: o.followers, start_followers: o.start_followers, net_followers: o.net_followers,
         growth_rate: o.start_followers > 0 ? o.net_followers / o.start_followers : null,
         per_day: o.per_day, projected_30d: o.per_day * 30,
         momentum: o.first_half > 0 ? (o.second_half - o.first_half) / o.first_half : null,
         views: o.views, engagement_rate: o.views ? o.engagements / o.views : null,
         fastest_platform: o.best ? o.best.name : null }));
-      rows.sort((a, b) => (b.growth_rate || 0) - (a.growth_rate || 0));
-      return rows.map((r, i) => Object.assign({ rank: i + 1 }, r));
+      rows.sort((a, b) => (a.category < b.category ? -1 : a.category > b.category ? 1 : (b.growth_rate || 0) - (a.growth_rate || 0)));
+      const seen = {};
+      return rows.map((r) => { seen[r.category] = (seen[r.category] || 0) + 1; return Object.assign({ rank: seen[r.category] }, r); });
+    }
+  });
+  dash.calc('scored', {
+    inputs: ['content'],
+    title: 'Posts and videos scored against their account',
+    description: 'Posts and videos published in the period. Each is compared with its own account’s typical (median) views: × typical, a verdict (Hit ≥ 2×, Above ≥ 1.2×, Typical, Below < 0.8×), save and share rates, new followers per 1,000 reached (Instagram) or viewed (YouTube), views per day since posting, and the weekday and time of day it went out (India time).',
+    fn: (content) => {
+      const BRANDS = ['World Governments Summit', 'CoinDCX'];
+      const rows = content.filter((r) => r.in_period);
+      const by = {};
+      rows.forEach((r) => { (by[r.account] = by[r.account] || []).push(r.views); });
+      const median = (a) => { const s = a.slice().sort((x, y) => x - y); const m = Math.floor(s.length / 2); return s.length ? (s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2) : 0; };
+      const med = {};
+      Object.keys(by).forEach((k) => { med[k] = median(by[k]); });
+      const toDate = (s) => { let t = String(s).trim().replace(' ', 'T'); if (/[+-]\d{4}$/.test(t)) t = t.slice(0, -2) + ':' + t.slice(-2); if (!/T/.test(t)) t += 'T00:00:00Z'; else if (!/(Z|[+-]\d\d:\d\d)$/.test(t)) t += 'Z'; return new Date(t); };
+      const ref = Math.max(...rows.map((r) => +toDate(r.published_at)).filter((x) => !isNaN(x)), 0);
+      const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      return rows.map((r) => {
+        const d = toDate(r.published_at);
+        const ist = new Date(+d + 5.5 * 3600000);
+        const hasTime = !/T00:00:00Z$/.test(String(r.published_at)) && /T|\s\d/.test(String(r.published_at));
+        const h = ist.getUTCHours();
+        const band = !hasTime ? null : h >= 6 && h < 12 ? 'Morning (6–12)' : h >= 12 && h < 17 ? 'Afternoon (12–5)' : h >= 17 && h < 21 ? 'Evening (5–9)' : 'Night (9–6)';
+        const typical = med[r.account] || 0;
+        const vs = typical ? r.views / typical : null;
+        const base = r.platform === 'Instagram' ? r.reach : r.views;
+        const age = Math.max(1, (ref - +d) / 86400000 + 1);
+        return Object.assign({}, r, {
+          category: BRANDS.includes(r.client) ? 'Brand' : 'Creator',
+          typical_views: typical, vs_typical: vs,
+          verdict: vs == null ? null : vs >= 2 ? 'Hit' : vs >= 1.2 ? 'Above typical' : vs >= 0.8 ? 'Typical' : 'Below typical',
+          save_rate: r.platform === 'Instagram' && r.reach ? (r.saves || 0) / r.reach : null,
+          share_rate: base ? (r.shares || 0) / base : null,
+          followers_per_1k: base && r.new_followers != null ? (r.new_followers / base) * 1000 : null,
+          views_per_day: r.views / age,
+          weekday: isNaN(+d) ? null : DAYS[(ist.getUTCDay() + 6) % 7],
+          time_band: band, hour_ist: hasTime ? h : null
+        });
+      });
+    }
+  });
+
+  dash.calc('formats', {
+    inputs: ['scored'],
+    title: 'Results by format',
+    description: 'For each account and format (Reel, Carousel, Image, Short, Video, Live) published in the period: posts, median and average views, median reach (Instagram), engagement rate, save and share rates, new followers per 1,000 reached or viewed, and average % viewed (YouTube).',
+    fn: (scored) => {
+      const g = {};
+      scored.forEach((r) => { const k = r.account + '|' + r.type; (g[k] = g[k] || []).push(r); });
+      const median = (a) => { const s = a.slice().sort((x, y) => x - y); const m = Math.floor(s.length / 2); return s.length ? (s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2) : 0; };
+      return Object.keys(g).map((k) => {
+        const rs = g[k], r0 = rs[0];
+        const sum = (f) => rs.reduce((s, r) => s + (Number(r[f]) || 0), 0);
+        const views = sum('views'), reach = sum('reach');
+        const base = r0.platform === 'Instagram' ? reach : views;
+        const eng = sum('likes') + sum('comments') + sum('shares') + sum('saves');
+        const pct = rs.filter((r) => r.avg_view_pct != null);
+        return { key: k, client: r0.client, category: r0.category, platform: r0.platform, account: r0.account, type: r0.type,
+          posts: rs.length, median_views: median(rs.map((r) => r.views)), median_reach: r0.platform === 'Instagram' ? median(rs.map((r) => r.reach || 0)) : null, avg_views: views / rs.length,
+          engagement_rate: views ? eng / views : null,
+          save_rate: r0.platform === 'Instagram' && reach ? sum('saves') / reach : null,
+          share_rate: base ? sum('shares') / base : null,
+          followers_per_1k: (() => { const k = rs.filter((r) => r.new_followers != null); const kb = k.reduce((t, r) => t + (Number(r0.platform === 'Instagram' ? r.reach : r.views) || 0), 0); return k.length && kb ? (k.reduce((t, r) => t + r.new_followers, 0) / kb) * 1000 : null; })(),
+          avg_view_pct: pct.length ? pct.reduce((s, r) => s + r.avg_view_pct, 0) / pct.length : null };
+      }).sort((a, b) => a.account.localeCompare(b.account) || b.median_views - a.median_views);
     }
   });
 </script>
@@ -841,13 +976,17 @@ window.dash = (function () {
       return {
         clients: Array.isArray(p.clients) ? p.clients : CLIENTS,
         platforms: Array.isArray(p.platforms) ? p.platforms : PLATFORMS,
+        categories: Array.isArray(p.categories) ? p.categories : ['Brand', 'Creator'],
+        focus: p.focus || 'World Governments Summit',
         range: p.range || 'last_30d',
         metric: p.metric || 'followers_gained',
         igmetric: p.igmetric || 'reach',
         ytmetric: p.ytmetric || 'views'
       };
     };
-    const picked = (r) => { const p = params(); return p.clients.includes(r.client) && p.platforms.includes(r.platform); };
+    const BRANDS = ['World Governments Summit', 'CoinDCX'];
+    const catOf = (c) => (BRANDS.includes(c) ? 'Brand' : 'Creator');
+    const picked = (r) => { const p = params(); return p.clients.includes(r.client) && p.platforms.includes(r.platform) && p.categories.includes(catOf(r.client)); };
 
     // ---------- Tabs ----------
     let tab = TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'overview';
@@ -872,7 +1011,7 @@ window.dash = (function () {
         box.addEventListener('change', () => {
           dash.setParams({ [key]: Array.from(container.querySelectorAll('input:checked')).map((i) => i.value) });
         });
-        lab.append(box, document.createTextNode(v));
+        lab.append(box, document.createTextNode(v === 'Brand' ? 'Brands' : v === 'Creator' ? 'Creators' : v));
         return lab;
       }));
     }
@@ -880,7 +1019,9 @@ window.dash = (function () {
     const fPlatforms = document.getElementById('f-platforms');
     chips(fClients, CLIENTS, 'clients');
     chips(fPlatforms, PLATFORMS, 'platforms');
-    const selects = { range: 'f-range', metric: 'f-metric', igmetric: 'f-igmetric', ytmetric: 'f-ytmetric' };
+    const fCats = document.getElementById('f-cats');
+    chips(fCats, ['Brand', 'Creator'], 'categories');
+    const selects = { range: 'f-range', metric: 'f-metric', igmetric: 'f-igmetric', ytmetric: 'f-ytmetric', focus: 'f-focus' };
     Object.entries(selects).forEach(([k, id]) => {
       const el = document.getElementById(id);
       el.addEventListener('change', () => dash.setParams({ [k]: el.value }));
@@ -890,6 +1031,7 @@ window.dash = (function () {
       const p = params();
       fClients.querySelectorAll('input').forEach((i) => { i.checked = p.clients.includes(i.value); });
       fPlatforms.querySelectorAll('input').forEach((i) => { i.checked = p.platforms.includes(i.value); });
+      fCats.querySelectorAll('input').forEach((i) => { i.checked = p.categories.includes(i.value); });
       Object.entries(selects).forEach(([k, id]) => { document.getElementById(id).value = p[k]; });
     }
 
@@ -1004,7 +1146,10 @@ window.dash = (function () {
     function cell(field, v) {
       if (empty(v)) return '';
       if (field === 'engagement_rate' || field === 'avg_view_pct') return fmtPct(Number(v));
-      if (field === 'growth_rate' || field === 'monthly_rate') return fmtPct2(Number(v));
+      if (field === 'growth_rate' || field === 'monthly_rate' || field === 'save_rate' || field === 'share_rate') return fmtPct2(Number(v));
+      if (field === 'vs_typical') return Number(v).toFixed(1) + '×';
+      if (field === 'followers_per_1k') return Number(v).toFixed(1);
+      if (field === 'views_per_day' || field === 'median_views' || field === 'median_reach' || field === 'typical_views') return fmtInt(Math.round(Number(v)));
       if (field === 'momentum') return (v > 0 ? '+' : v < 0 ? '−' : '') + fmtPct(Math.abs(Number(v)));
       if (field === 'per_day' || field === 'projected_30d' || field === 'start_followers') return (field === 'start_followers' ? '' : (v > 0 ? '+' : '')) + fmtInt(Math.round(Number(v)));
       if (field === 'avg_view_duration') return fmtDur(Number(v));
@@ -1013,7 +1158,7 @@ window.dash = (function () {
       if (typeof v === 'number') return fmtInt(v);
       return String(v);
     }
-    const TEXT_FIELDS = ['client', 'platform', 'type', 'published', 'account'];
+    const TEXT_FIELDS = ['client', 'platform', 'type', 'published', 'account', 'category', 'verdict', 'weekday', 'time_band'];
     function fillTable(table, rows, cols, keyOf) {
       const tbody = table.querySelector('tbody');
       tbody.replaceChildren(...rows.map((r) => {
@@ -1036,6 +1181,10 @@ window.dash = (function () {
             b.className = 'sm-badge ' + (r.platform === 'Instagram' ? 'ig' : 'yt');
             b.textContent = label;
             td.append(b);
+          } else if (f === 'category' && r.category) {
+            const b = document.createElement('span'); b.className = 'sm-cat ' + r.category.toLowerCase(); b.textContent = r.category; td.append(b);
+          } else if (f === 'verdict' && r.verdict) {
+            const b = document.createElement('span'); b.className = 'sm-verdict v-' + r.verdict.split(' ')[0].toLowerCase(); b.textContent = r.verdict; td.append(b);
           } else if (f === 'type' && r.type) {
             const b = document.createElement('span'); b.className = 'sm-type'; b.textContent = r.type; td.append(b);
           } else td.textContent = cell(f, r[f]);
@@ -1102,7 +1251,7 @@ window.dash = (function () {
 
     // ---------- Overview ----------
     const accSort = { key: 'followers', dir: 'desc' };
-    const ACC_COLS = ['client', 'platform', 'followers', 'followers_gained', 'followers_lost', 'net_followers', 'growth_rate', 'views', 'reach', 'engagements', 'engagement_rate', 'posts', 'views_per_post', 'watch_hours', 'avg_view_duration', 'lifetime_posts'];
+    const ACC_COLS = ['client', 'category', 'platform', 'followers', 'followers_gained', 'followers_lost', 'net_followers', 'growth_rate', 'views', 'reach', 'engagements', 'engagement_rate', 'posts', 'views_per_post', 'watch_hours', 'avg_view_duration', 'lifetime_posts'];
     const accTable = document.getElementById('accounts-table');
     accTable.querySelector('thead').addEventListener('click', (e) => {
       const b = e.target.closest('button[data-sort]');
@@ -1271,14 +1420,23 @@ window.dash = (function () {
       cards.classList.toggle('dash-skeleton', cg.status === 'loading');
       if (cg.status === 'ok') {
         const sel = params().clients;
-        const rows = cg.data.filter((r) => sel.includes(r.client));
+        const cats = params().categories;
+        const rows = cg.data.filter((r) => sel.includes(r.client) && cats.includes(r.category));
+        const counts = {};
+        cg.data.forEach((r) => { counts[r.category] = (counts[r.category] || 0) + 1; });
+        let lastCat = null;
         rows.forEach((r) => {
+          if (r.category !== lastCat) {
+            lastCat = r.category;
+            const h = document.createElement('h3'); h.className = 'sm-group-h'; h.textContent = r.category === 'Brand' ? 'Brands' : 'Creators';
+            cards.append(h);
+          }
           const card = document.createElement('article');
           card.className = 'sm-card sm-cc';
           card.style.setProperty('--cc', clientColor(r.client));
           const top = document.createElement('div'); top.className = 'sm-cc-top';
           const nm = document.createElement('div'); nm.className = 'sm-cc-name'; nm.textContent = r.client;
-          const rk = document.createElement('div'); rk.className = 'sm-cc-rank'; rk.textContent = '#' + r.rank + ' of ' + cg.data.length + ' by growth';
+          const rk = document.createElement('div'); rk.className = 'sm-cc-rank'; rk.textContent = '#' + r.rank + ' of ' + counts[r.category] + ' ' + (r.category === 'Brand' ? 'brands' : 'creators') + ' by growth';
           top.append(nm, rk);
           const pl = document.createElement('div'); pl.className = 'sm-cc-plat'; pl.textContent = r.platforms;
           const big = document.createElement('div'); big.className = 'sm-cc-big';
@@ -1291,6 +1449,7 @@ window.dash = (function () {
           item(fmtBig(r.followers), 'audience now');
           item(signed(r.projected_30d), 'next 30 days at this pace');
           if (empty(r.momentum)) item('—', 'momentum');
+          else if (Math.abs(r.momentum) < 0.05) item('Steady', '2nd half vs 1st half');
           else item((r.momentum >= 0 ? 'Speeding up ' : 'Slowing ') + fmtPct(Math.abs(r.momentum)), '2nd half vs 1st half', r.momentum >= 0 ? 'sm-up' : 'sm-down');
           item(r.fastest_platform || '—', 'fastest-growing account');
           item(fmtBig(r.views), 'views in the period');
@@ -1334,18 +1493,125 @@ window.dash = (function () {
     }
 
 
-    // ---------- WGS ----------
-    const WGS = 'World Governments Summit';
-    const WGS_YT_COLS = ['client', 'type', 'url', 'title', 'published', 'views', 'avg_view_pct', 'avg_view_duration', 'likes', 'comments', 'shares', 'engagement_rate', 'new_followers'];
+    // ---------- WGS / deep dive ----------
+    const fFocus = document.getElementById('f-focus');
+    fFocus.replaceChildren(...CLIENTS.map((c) => { const o = document.createElement('option'); o.value = c; o.textContent = c; return o; }));
     function seriesFor(rows, field, keep) {
       return d3.groups(rows.filter((r) => keep(r) && !empty(r[field])), (r) => r.id)
         .map(([id, rs]) => ({ key: id, label: rs[0].account, color: colorOf(id), dashed: false,
           points: rs.map((r) => ({ date: new Date(r.date + 'T00:00:00Z'), v: Number(r[field]) })).sort((a, b) => a.date - b.date) }))
         .sort((a, b) => a.label.localeCompare(b.label));
     }
+    const PLURAL = { Reel: 'Reels', Carousel: 'carousels', Image: 'single images', Video: 'long videos', Short: 'Shorts', Live: 'live streams' };
+    const pl = (t) => PLURAL[t] || t;
+    const xT = (v) => (v < 0.1 ? v.toFixed(2) : v.toFixed(1)) + '×';
+    const pctS = (v) => (v >= 0 ? '+' : '−') + fmtPct2(Math.abs(v));
+    const quote = (t) => '“' + (t.length > 70 ? t.slice(0, 70) + '…' : t) + '”';
+    const plat = (r) => (r.account || '').split(' · ')[1] || r.platform;
+
+    function ddInsights(focus, sc, fm, ag) {
+      const out = [];
+      const days = { last_7d: 7, last_14d: 14, last_30d: 30 }[params().range] || 30;
+      ag.filter((a) => a.client === focus).forEach((a) => {
+        let t = plat(a) + ': ' + fmtInt(Math.round(a.start_followers)) + ' → ' + fmtInt(a.followers) + ' followers (' + signed(a.net_followers) + (a.growth_rate != null ? ', ' + pctS(a.growth_rate) : '') + ') in the period.';
+        if (a.per_day != null) t += ' About ' + fmtInt(Math.round(a.per_day)) + ' a day, which points to roughly ' + signed(a.projected_30d) + ' over the next 30 days.';
+        if (a.momentum != null && Math.abs(a.momentum) < 0.05) t += ' Growth was steady through the period.';
+        else if (a.momentum != null) t += a.momentum >= 0 ? ' Growth sped up ' + fmtPct(a.momentum) + ' in the second half of the period.' : ' Growth slowed ' + fmtPct(-a.momentum) + ' in the second half of the period.';
+        out.push({ tone: a.momentum != null && a.momentum < -0.1 ? 'bad' : 'good', text: t });
+      });
+      ['Instagram', 'YouTube'].forEach((p) => {
+        const f = fm.filter((x) => x.client === focus && x.platform === p && x.posts >= 2);
+        if (f.length >= 2) {
+          const m = p === 'Instagram' ? 'median_reach' : 'median_views';
+          const word = p === 'Instagram' ? 'people' : 'views';
+          const best = f.reduce((a, b) => (b[m] > a[m] ? b : a));
+          const worst = f.reduce((a, b) => (b[m] < a[m] ? b : a));
+          if (worst[m] > 0 && best[m] / worst[m] >= 1.2) {
+            out.push({ tone: 'good', text: 'On ' + p + ', ' + pl(best.type) + (p === 'Instagram' ? ' reach ' + xT(best[m] / worst[m]) + ' as many people as ' : ' get ' + xT(best[m] / worst[m]) + ' the views of ') + pl(worst.type) + ' (typical ' + fmtBig(best[m]) + ' vs ' + fmtBig(worst[m]) + '). Lean into ' + pl(best.type) + '.' });
+          }
+          const er = f.filter((x) => x.engagement_rate != null);
+          if (er.length >= 2) {
+            const e = er.reduce((a, b) => (b.engagement_rate > a.engagement_rate ? b : a));
+            if (e.type !== best.type && e.engagement_rate >= (best.engagement_rate || 0) * 1.1) out.push({ tone: 'info', text: 'On ' + p + ', ' + pl(e.type) + ' get the most engagement per view (' + fmtPct(e.engagement_rate) + '), even though ' + pl(best.type) + (p === 'Instagram' ? ' reach more people' : ' get more views') + ' — good for community, less for growth.' });
+          }
+          if (p === 'Instagram') {
+            const sv = f.filter((x) => x.save_rate != null), sh = f.filter((x) => x.share_rate != null);
+            if (sv.length >= 2 && sh.length >= 2) {
+              const s1 = sv.reduce((a, b) => (b.save_rate > a.save_rate ? b : a)), s2 = sh.reduce((a, b) => (b.share_rate > a.share_rate ? b : a));
+              out.push({ tone: 'info', text: s1.type === s2.type
+                ? pl(s1.type) + ' lead on both saves (' + fmtPct2(s1.save_rate) + ' of reach) and shares (' + fmtPct2(s2.share_rate) + ') — the format people find most worth keeping and passing on.'
+                : pl(s1.type) + ' get saved most (' + fmtPct2(s1.save_rate) + ' of reach) — useful, reference-style content; ' + pl(s2.type) + ' get shared most (' + fmtPct2(s2.share_rate) + ') — that drives new reach.' });
+            }
+          }
+          if (p === 'YouTube') {
+            const sh = f.find((x) => x.type === 'Short'), lv = f.find((x) => x.type === 'Video');
+            if (sh && lv && sh.followers_per_1k != null && lv.followers_per_1k != null) {
+              out.push({ tone: 'info', text: 'Subscribers per 1,000 views: long videos ' + lv.followers_per_1k.toFixed(1) + ' vs Shorts ' + sh.followers_per_1k.toFixed(1) + '. ' + (lv.followers_per_1k > sh.followers_per_1k ? 'Shorts bring views; long videos turn viewers into subscribers.' : 'Shorts are converting viewers to subscribers better than long videos right now.') +
+                (sh.avg_view_pct != null && lv.avg_view_pct != null ? ' Average % watched: Shorts ' + fmtPct(sh.avg_view_pct) + ', long videos ' + fmtPct(lv.avg_view_pct) + '.' : '') });
+            }
+          }
+        }
+      });
+      const posts = sc.filter((r) => r.client === focus && r.vs_typical != null);
+      if (posts.length >= 4) {
+        const groupAvg = (key) => d3.rollups(posts.filter((r) => r[key]), (v) => ({ n: v.length, x: d3.median(v, (r) => r.vs_typical) }), (r) => r[key]).filter(([, o]) => o.n >= 2);
+        const dd = groupAvg('weekday');
+        if (dd.length >= 2) {
+          const b = dd.reduce((a, c) => (c[1].x > a[1].x ? c : a)), w = dd.reduce((a, c) => (c[1].x < a[1].x ? c : a));
+          out.push({ tone: 'good', text: 'Best day to post: ' + b[0] + ' (its posts typically land at ' + xT(b[1].x) + ' across ' + b[1].n + ' posts). Weakest: ' + w[0] + ' (' + xT(w[1].x) + ').' });
+        }
+        const tb = groupAvg('time_band');
+        if (tb.length >= 2) {
+          const b = tb.reduce((a, c) => (c[1].x > a[1].x ? c : a));
+          out.push({ tone: 'good', text: 'Best time of day: ' + b[0] + ' IST, where posts typically land at ' + xT(b[1].x) + '.' });
+        }
+        const hits = posts.filter((r) => r.verdict === 'Hit'), below = posts.filter((r) => r.verdict === 'Below typical');
+        out.push({ tone: hits.length >= below.length ? 'good' : 'bad', text: hits.length + ' of ' + posts.length + ' posts were hits (2× typical or more); ' + below.length + ' landed below typical.' });
+        const top = posts.reduce((a, b) => (b.vs_typical > a.vs_typical ? b : a));
+        out.push({ tone: 'good', text: 'Best performer: ' + quote(top.title) + ' (' + plat(top) + ' ' + top.type + ', ' + fmtDate(top.published) + ') at ' + xT(top.vs_typical) + ' typical with ' + fmtBig(top.views) + ' views' + (top.share_rate ? ' and a ' + fmtPct2(top.share_rate) + ' share rate' : '') + '. Make more like this.' });
+        const settled = posts.filter((r) => r.published <= d3.max(posts, (p) => p.published).slice(0, 10) && posts.length > 5);
+        const old = settled.filter((r) => r !== top).sort((a, b) => a.vs_typical - b.vs_typical);
+        const lowCut = d3.max(posts, (p) => p.published);
+        const weak = old.find((r) => r.published < lowCut);
+        if (weak && weak.vs_typical < 0.8) out.push({ tone: 'bad', text: 'Weakest: ' + quote(weak.title) + ' (' + plat(weak) + ' ' + weak.type + ', ' + fmtDate(weak.published) + ') at ' + xT(weak.vs_typical) + ' typical. Worth checking what was different — topic, hook or format.' });
+        const conv = posts.filter((r) => r.followers_per_1k != null && (r.platform === 'Instagram' ? r.reach : r.views) >= 1000);
+        if (conv.length) {
+          const c = conv.reduce((a, b) => (b.followers_per_1k > a.followers_per_1k ? b : a));
+          if (c.followers_per_1k > 0) out.push({ tone: 'good', text: 'Best at winning followers: ' + quote(c.title) + ' (' + plat(c) + ') with ' + c.followers_per_1k.toFixed(1) + ' new followers per 1,000 ' + (c.platform === 'Instagram' ? 'reached' : 'views') + '.' });
+        }
+      } else {
+        out.push({ tone: 'info', text: 'Not enough posts in this period for patterns yet — pick a longer period at the top.' });
+      }
+      const ig = sc.filter((r) => r.client === focus && r.platform === 'Instagram').length;
+      const yt = sc.filter((r) => r.client === focus && r.platform === 'YouTube').length;
+      const parts = [];
+      if (ig) parts.push((ig / (days / 7)).toFixed(1) + ' Instagram posts');
+      if (yt) parts.push((yt / (days / 7)).toFixed(1) + ' YouTube uploads');
+      if (parts.length) out.push({ tone: 'info', text: 'Posting rhythm: about ' + parts.join(' and ') + ' a week.' });
+      return out;
+    }
+
+    const DD_COLS = ['platform', 'type', 'url', 'title', 'published', 'views', 'views_per_day', 'vs_typical', 'verdict', 'engagement_rate', 'save_rate', 'share_rate', 'new_followers', 'followers_per_1k', 'avg_view_pct', 'weekday', 'time_band'];
+    const FMT_DD_COLS = ['account', 'type', 'posts', 'median_views', 'median_reach', 'avg_views', 'engagement_rate', 'save_rate', 'share_rate', 'followers_per_1k', 'avg_view_pct'];
+    const ddSort = { key: 'vs_typical', dir: 'desc' };
+    const ddTable = document.getElementById('dd-posts');
+    const ddSearch = document.getElementById('dd-search');
+    ddSearch.addEventListener('input', () => drawWGS());
+    ddTable.querySelector('thead').addEventListener('click', (e) => {
+      const b = e.target.closest('button[data-dsort]');
+      if (!b) return;
+      ddSort.dir = ddSort.key === b.dataset.dsort && ddSort.dir === 'desc' ? 'asc' : 'desc';
+      ddSort.key = b.dataset.dsort;
+      drawWGS();
+    });
+
     function drawWGS() {
-      const a = dash.data('accounts'), d = dash.data('daily'), c = dash.data('content');
-      const isW = (r) => r.client === WGS;
+      const focus = params().focus;
+      const a = dash.data('accounts'), d = dash.data('daily'), sc = dash.data('scored'), fm = dash.data('formats'), ag = dash.data('account_growth');
+      const isW = (r) => r.client === focus;
+      document.getElementById('dd-title').textContent = focus;
+      const cat = document.getElementById('dd-cat'); cat.textContent = catOf(focus); cat.className = 'sm-cat ' + catOf(focus).toLowerCase();
+
       const accT = document.getElementById('wgs-acc-table');
       if (a.status !== 'ok') { kpiState('wgs', a.status); tableState(accT, ACC_COLS.length, a.status); }
       else {
@@ -1365,18 +1631,100 @@ window.dash = (function () {
         setKpi('wgs_hours', yt ? fmtBig(yt.watch_hours || 0) : '—');
         fillTable(accT, rows, ACC_COLS, (r) => r.id);
       }
+
+      const accBox = document.getElementById('dd-acc');
+      accBox.replaceChildren();
+      accBox.classList.toggle('dash-skeleton', ag.status === 'loading');
+      if (ag.status === 'ok') {
+        ag.data.filter(isW).forEach((r) => {
+          const c = document.createElement('div'); c.className = 'sm-acc-card';
+          const h = document.createElement('div'); h.className = 'sm-post-acc'; h.textContent = plat(r);
+          const big = document.createElement('div'); big.className = 'sm-acc-from';
+          const s1 = document.createElement('span'); s1.textContent = fmtInt(Math.round(r.start_followers));
+          const ar = document.createElement('span'); ar.className = 'arrow'; ar.textContent = '→';
+          const s2 = document.createElement('span'); s2.textContent = fmtInt(r.followers);
+          big.append(s1, ar, s2);
+          const grid = document.createElement('div'); grid.className = 'sm-cc-grid';
+          const item = (val, lab, cls) => { const dv = document.createElement('div'); const b = document.createElement('b'); b.textContent = val; if (cls) b.className = cls; const sp = document.createElement('span'); sp.textContent = lab; dv.append(b, sp); grid.append(dv); };
+          item(signed(r.net_followers), 'net new');
+          item(r.growth_rate == null ? '—' : pctS(r.growth_rate), 'growth');
+          item(r.per_day == null ? '—' : (r.per_day >= 0 ? '+' : '') + fmtInt(Math.round(r.per_day)) + ' / day', 'pace');
+          item(r.projected_30d == null ? '—' : signed(r.projected_30d), 'next 30 days');
+          if (r.momentum == null) item('—', 'momentum');
+          else if (Math.abs(r.momentum) < 0.05) item('Steady', '2nd half vs 1st');
+          else item((r.momentum >= 0 ? 'Speeding up ' : 'Slowing ') + fmtPct(Math.abs(r.momentum)), '2nd half vs 1st', r.momentum >= 0 ? 'sm-up' : 'sm-down');
+          c.append(h, big, grid);
+          accBox.append(c);
+        });
+        if (!accBox.children.length) { const e = document.createElement('p'); e.className = 'sm-note'; e.textContent = 'No data for ' + focus + ' yet: run the refresh once.'; accBox.append(e); }
+      } else if (ag.status !== 'loading') { const f = document.createElement('div'); f.className = 'sm-fail'; f.textContent = 'Failed to load'; accBox.append(f); }
+
+      const ins = document.getElementById('dd-ins');
+      ins.replaceChildren();
+      ins.classList.toggle('dash-skeleton', [sc, fm, ag].some((x) => x.status === 'loading'));
+      if (sc.status === 'ok' && fm.status === 'ok' && ag.status === 'ok') {
+        ddInsights(focus, sc.data, fm.data, ag.data).forEach((o) => { const li = document.createElement('li'); li.className = o.tone; li.textContent = o.text; ins.append(li); });
+      } else if (![sc, fm, ag].some((x) => x.status === 'loading')) { const li = document.createElement('li'); li.className = 'bad'; li.textContent = 'Failed to load'; ins.append(li); }
+
       if (d.status === 'ok') {
-        drawLines('wgs-net-chart', 'wgs-net-legend', seriesFor(d.data, 'net_followers', isW), (v) => fmtInt(v), 'No World Governments Summit data yet: run the refresh once.');
-        drawLines('wgs-views-chart', 'wgs-views-legend', seriesFor(d.data, 'views', isW), (v) => fmtInt(v), 'No World Governments Summit data yet: run the refresh once.');
+        drawLines('wgs-net-chart', 'wgs-net-legend', seriesFor(d.data, 'net_followers', isW), (v) => fmtInt(v), 'No data for this account yet: run the refresh once.');
+        drawLines('wgs-views-chart', 'wgs-views-legend', seriesFor(d.data, 'views', isW), (v) => fmtInt(v), 'No data for this account yet: run the refresh once.');
       } else {
         ['wgs-net-chart', 'wgs-views-chart'].forEach((id) => failBox(document.getElementById(id), d.status, 280));
         ['wgs-net-legend', 'wgs-views-legend'].forEach((id) => document.getElementById(id).replaceChildren());
       }
-      const igT = document.getElementById('wgs-ig-table'), ytT = document.getElementById('wgs-yt-table');
-      if (c.status === 'ok') {
-        fillTable(igT, c.data.filter((r) => isW(r) && r.platform === 'Instagram').sort((x, y) => y.views - x.views).slice(0, 10), IG_TOP_COLS, (r) => r.id);
-        fillTable(ytT, c.data.filter((r) => isW(r) && r.platform === 'YouTube').sort((x, y) => y.views - x.views).slice(0, 10), WGS_YT_COLS, (r) => r.id);
-      } else { tableState(igT, IG_TOP_COLS.length, c.status); tableState(ytT, WGS_YT_COLS.length, c.status); }
+
+      const lat = document.getElementById('dd-latest');
+      lat.replaceChildren();
+      lat.classList.toggle('dash-skeleton', sc.status === 'loading');
+      const fmT = document.getElementById('dd-formats');
+      if (sc.status === 'ok') {
+        const mine = sc.data.filter(isW);
+        const latest = {};
+        mine.forEach((r) => { if (!latest[r.account] || r.published_at > latest[r.account].published_at) latest[r.account] = r; });
+        Object.values(latest).forEach((r) => {
+          const card = document.createElement('article'); card.className = 'sm-card sm-post';
+          const acc = document.createElement('div'); acc.className = 'sm-post-acc'; acc.textContent = 'Latest on ' + plat(r) + ' · ' + r.type + ' · ' + fmtDate(r.published) + (r.weekday ? ' (' + r.weekday + ')' : '');
+          const t = document.createElement('div'); t.className = 'sm-post-title'; t.textContent = r.title;
+          const row = document.createElement('div'); row.style.display = 'flex'; row.style.alignItems = 'center'; row.style.gap = '10px'; row.style.flexWrap = 'wrap';
+          const x = document.createElement('span'); x.className = 'sm-x'; x.textContent = r.vs_typical == null ? '—' : xT(r.vs_typical);
+          const xs = document.createElement('span'); xs.className = 'sm-ks'; xs.textContent = 'of typical (' + fmtBig(r.typical_views) + ' views)';
+          row.append(x, xs);
+          if (r.verdict) { const v = document.createElement('span'); v.className = 'sm-verdict v-' + r.verdict.split(' ')[0].toLowerCase(); v.textContent = r.verdict; row.append(v); }
+          const stats = document.createElement('div'); stats.className = 'sm-post-stats';
+          const stat = (val, lab) => { const dv = document.createElement('div'); const b = document.createElement('b'); b.textContent = val; const s = document.createElement('span'); s.textContent = lab; dv.append(b, s); stats.append(dv); };
+          stat(fmtBig(r.views), 'views'); stat(fmtBig(r.views_per_day), 'views / day'); stat(empty(r.engagement_rate) ? '—' : fmtPct(r.engagement_rate), 'eng. rate');
+          if (r.platform === 'Instagram') { stat(empty(r.save_rate) ? '—' : fmtPct2(r.save_rate), 'save rate'); stat(empty(r.share_rate) ? '—' : fmtPct2(r.share_rate), 'share rate'); stat(empty(r.new_followers) ? '—' : fmtInt(r.new_followers), 'follows'); }
+          else { stat(empty(r.avg_view_pct) ? '—' : fmtPct(r.avg_view_pct), 'avg % viewed'); stat(fmtInt(r.likes), 'likes'); stat(empty(r.new_followers) ? '—' : fmtInt(r.new_followers), 'subs gained'); }
+          card.append(acc, t, row, stats);
+          if (r.url) { const a2 = document.createElement('a'); a2.href = r.url; a2.target = '_blank'; a2.rel = 'noopener noreferrer'; a2.className = 'sm-link'; a2.style.alignSelf = 'flex-start'; a2.textContent = r.platform === 'Instagram' ? 'Open post ↗' : 'Watch ↗'; card.append(a2); }
+          lat.append(card);
+        });
+        if (!lat.children.length) { const e = document.createElement('p'); e.className = 'sm-note'; e.textContent = 'No posts in this period.'; lat.append(e); }
+
+        const scorable = mine.filter((r) => r.vs_typical != null);
+        const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        const byDay = DAYS.map((dname) => { const v = scorable.filter((r) => r.weekday === dname); return { label: dname + ' (' + v.length + ')', value: v.length ? d3.median(v, (r) => r.vs_typical) : 0 }; });
+        const bestD = d3.max(byDay, (b) => b.value);
+        drawBars('dd-day-chart', byDay.map((b) => Object.assign(b, { color: b.value === bestD && b.value > 0 ? dash.colors[2] : 'var(--cds-chart-muted)' })), (v) => v.toFixed(2) + '×', 'No posts in this period.');
+        const BANDS = ['Morning (6–12)', 'Afternoon (12–5)', 'Evening (5–9)', 'Night (9–6)'];
+        const timed = scorable.filter((r) => r.time_band);
+        const byBand = BANDS.map((bn) => { const v = timed.filter((r) => r.time_band === bn); return { label: bn + ' (' + v.length + ')', value: v.length ? d3.median(v, (r) => r.vs_typical) : 0 }; });
+        const bestB = d3.max(byBand, (b) => b.value);
+        drawBars('dd-time-chart', timed.length ? byBand.map((b) => Object.assign(b, { color: b.value === bestB && b.value > 0 ? dash.colors[2] : 'var(--cds-chart-muted)' })) : [], (v) => v.toFixed(2) + '×', 'Posting times aren\'t available for this account.');
+
+        markSort(ddTable, 'data-dsort', ddSort);
+        const q = ddSearch.value.trim().toLowerCase();
+        const rows = sorter(mine.filter((r) => !q || String(r.title).toLowerCase().includes(q)), ddSort.key, ddSort.dir);
+        fillTable(ddTable, rows, DD_COLS, (r) => r.id);
+        document.getElementById('dd-count').textContent = rows.length + ' item' + (rows.length === 1 ? '' : 's') + ' shown';
+      } else {
+        if (sc.status !== 'loading') { const f = document.createElement('div'); f.className = 'sm-fail'; f.textContent = 'Failed to load'; lat.append(f); }
+        ['dd-day-chart', 'dd-time-chart'].forEach((id) => failBox(document.getElementById(id), sc.status));
+        tableState(ddTable, DD_COLS.length, sc.status);
+      }
+      if (fm.status === 'ok') fillTable(fmT, fm.data.filter(isW), FMT_DD_COLS, (r) => r.key);
+      else tableState(fmT, FMT_DD_COLS.length, fm.status);
     }
 
     // ---------- All content ----------
