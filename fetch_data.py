@@ -12,8 +12,8 @@ if not API_KEY:
 BASE = "https://connectors.windsor.ai/"
 
 # Accounts shown on the dashboard. Add a new client here (Instagram username / YouTube channel name).
-IG_USERS = {"sandeepdasauthor", "drtarangkrishna", "ajithkarimpana"}
-YT_FULL_CHANNELS = {"Sandeep Das", "Dr Tarang Krishna"}   # every content type
+IG_USERS = {"sandeepdasauthor", "drtarangkrishna", "ajithkarimpana", "worldgovsummit"}
+YT_FULL_CHANNELS = {"Sandeep Das", "Dr Tarang Krishna", "World Governments Summit"}   # every content type
 YT_SHORTS_ONLY = {"CoinDCX"}                               # YouTube Shorts only
 YT_ALL = YT_FULL_CHANNELS | YT_SHORTS_ONLY
 
