@@ -158,6 +158,7 @@ window.dash = (function () {
   <nav class="sm-tabs" role="tablist" aria-label="Pages">
     <button type="button" role="tab" data-tab="overview">Overview</button>
     <button type="button" role="tab" data-tab="growth">Client growth</button>
+    <button type="button" role="tab" data-tab="business">Business</button>
     <button type="button" role="tab" data-tab="wgs">WGS deep dive</button>
     <button type="button" role="tab" data-tab="instagram">Instagram</button>
     <button type="button" role="tab" data-tab="youtube">YouTube</button>
@@ -288,6 +289,84 @@ window.dash = (function () {
     </section>
   </section>
 
+
+  <!-- ================= BUSINESS ================= -->
+  <section class="sm-page" id="business" role="tabpanel" hidden>
+    <div class="sm-dd-head">
+      <div>
+        <h2 class="sm-dd-title">Business review <span class="sm-cat brand" id="biz-month">November 2026</span></h2>
+        <p class="sm-note">Monthly update for the founder: revenue, profitability, client status, team capacity and priorities. Figures are entered manually and are not pulled from Windsor.ai — the platform numbers on the other tabs are live.</p>
+      </div>
+    </div>
+
+    <div class="sm-kpis">
+      <div class="sm-card sm-kpi"><div class="sm-kl">Monthly revenue</div><div class="sm-kv">₹21.5L</div><div class="sm-ks">3 confirmed clients</div></div>
+      <div class="sm-card sm-kpi"><div class="sm-kl">Salary cost</div><div class="sm-kv">₹5.81L</div><div class="sm-ks">9-person team</div></div>
+      <div class="sm-card sm-kpi"><div class="sm-kl">Profit</div><div class="sm-kv">₹15.69L</div><div class="sm-ks">Before other expenses &amp; tax</div></div>
+      <div class="sm-card sm-kpi"><div class="sm-kl">Margin</div><div class="sm-kv">73.0%</div><div class="sm-ks">Revenue less salaries only</div></div>
+      <div class="sm-card sm-kpi"><div class="sm-kl">Team size</div><div class="sm-kv">9</div><div class="sm-ks">2 strategists, 5 editors, 2 designers</div></div>
+      <div class="sm-card sm-kpi"><div class="sm-kl">Pipeline</div><div class="sm-kv">₹10L</div><div class="sm-ks">CHC / Srini, quoted not closed</div></div>
+    </div>
+
+    <div class="sm-grid2">
+      <section class="sm-card">
+        <h2 class="sm-h2">October: the headline</h2>
+        <ul class="sm-ins">
+          <li class="good"><span><span class="k">Biggest highlight —</span> Dr. Tarang Krishna had his strongest month on record: <b>+56,679 Instagram followers</b> (7.4% growth), 31.0M views, and the YouTube channel passed <b>100,000 subscribers</b>. Cancer-screening Reels averaged 1.0M views each and produced 210,002 shares.</span></li>
+          <li class="bad"><span><span class="k">What didn't work —</span> Volume without packaging. <b>28 of 83 Reels reached under 5,000 people</b>, and the same clips were posted two or three times, with repeats reaching 1–3% of the original. Growth was front-loaded: week 1 added 25,228 followers, the final week only 6,649.</span></li>
+          <li><span><span class="k">The ask —</span> An introduction to one brand or founder in health, fintech or D2C who is ready to invest ₹5L+ a month. One confirmed client is the single trigger for the next hire, and warm introductions close far faster than outbound.</span></li>
+        </ul>
+      </section>
+      <section class="sm-card">
+        <h2 class="sm-h2">Revenue by client</h2>
+        <p class="sm-note">Confirmed monthly retainers.</p>
+        <div class="sm-chart sm-chart-short" id="biz-rev-chart"></div>
+      </section>
+    </div>
+
+    <section class="sm-card">
+      <h2 class="sm-h2">Client status</h2>
+      <p class="sm-note">Confirmed work is separated from pipeline. Nothing below is counted as revenue until it is contracted.</p>
+      <div class="sm-tablewrap"><table class="sm-table" id="biz-clients"><thead><tr>
+        <th data-field="client">Client</th><th data-field="stage">Stage</th><th data-field="rev">Monthly value</th><th data-field="scope">Scope</th><th data-field="next">Next step</th>
+      </tr></thead><tbody></tbody></table></div>
+    </section>
+
+    <div class="sm-grid2">
+      <section class="sm-card">
+        <h2 class="sm-h2">Team and capacity</h2>
+        <p class="sm-note">Nine people against three clients. Manageable today, at capacity tomorrow.</p>
+        <div class="sm-tablewrap"><table class="sm-table" id="biz-team"><thead><tr>
+          <th data-field="role">Role</th><th data-field="n">People</th><th data-field="note">Note</th>
+        </tr></thead><tbody></tbody></table></div>
+        <p class="sm-note" style="margin-top:12px">Manish is running the Dr. Tarang account and the editing team, which frees Pravin for business growth, new clients and other departments.</p>
+      </section>
+      <section class="sm-card">
+        <h2 class="sm-h2">Hiring decision</h2>
+        <ul class="sm-ins">
+          <li><span><span class="k">Decision needed now: none.</span> Hold the proposed hiring.</span></li>
+          <li><span><span class="k">Trigger —</span> Hire only once one additional client is confirmed and onboarded, so incremental cost is backed by contracted revenue rather than pipeline.</span></li>
+          <li><span><span class="k">When triggered —</span> 1 strategist/writer and 1 editor. Exact role and cost to be sized against the new client's scope.</span></li>
+          <li class="bad"><span><span class="k">Risk if we wait too long —</span> One more client without hiring puts turnaround times and quality at risk across all four accounts.</span></li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="sm-card">
+      <h2 class="sm-h2">Top 3 priorities for November</h2>
+      <div class="sm-dd-acc" id="biz-priorities"></div>
+    </section>
+
+    <section class="sm-card">
+      <h2 class="sm-h2">November targets</h2>
+      <ul class="sm-ins">
+        <li class="good"><span><span class="k">Revenue —</span> Hold the confirmed base of <b>₹21.5L a month</b>, with upside from new onboarding.</span></li>
+        <li class="good"><span><span class="k">Clients —</span> Retain and deliver strongly for all three current clients, and close and onboard <b>at least one additional client</b>.</span></li>
+        <li><span><span class="k">Owner —</span> Pravin, across all three priorities.</span></li>
+      </ul>
+      <p class="sm-note" style="margin-top:14px">Profitability above counts client revenue and employee salaries only. It excludes operating expenses, overheads, software, production costs and tax. Client-wise cost allocation can be added if required.</p>
+    </section>
+  </section>
 
   <!-- ================= WGS / DEEP DIVE ================= -->
   <section class="sm-page" id="wgs" role="tabpanel" hidden>
@@ -955,7 +1034,7 @@ window.dash = (function () {
   (function () {
     const CLIENTS = ['Sandeep Das', 'Dr. Tarang Krishna', 'Ajith Karimpana', 'CoinDCX', 'World Governments Summit'];
     const PLATFORMS = ['Instagram', 'YouTube'];
-    const TABS = ['overview', 'growth', 'wgs', 'instagram', 'youtube', 'content'];
+    const TABS = ['overview', 'growth', 'business', 'wgs', 'instagram', 'youtube', 'content'];
     const RANGE_LABEL = { last_7d: 'last 7 days', last_14d: 'last 14 days', last_30d: 'last 30 days' };
     const ACCOUNT_IDS = ['sandeep-ig', 'sandeep-yt', 'tarang-ig', 'tarang-yt', 'ajith-ig', 'coindcx-yt', 'wgs-ig', 'wgs-yt'];
     const CLIENT_COLOR = { 'Sandeep Das': 0, 'Dr. Tarang Krishna': 2, 'Ajith Karimpana': 4, CoinDCX: 5, 'World Governments Summit': 7 };
@@ -1727,6 +1806,62 @@ window.dash = (function () {
       else tableState(fmT, FMT_DD_COLS.length, fm.status);
     }
 
+
+    // ---------- Business ----------
+    const BIZ_REV=[['Dr. Krishna Cancer Healer / Dr. Tarang',1000000],['Furlenco / Ajith Karimpana',600000],['CoinDCX',550000]];
+    const BIZ_CLIENTS=[
+      ['Dr. Krishna Cancer Healer / Dr. Tarang','Confirmed','₹10,00,000','Instagram + YouTube, full service','Sustain October momentum; rebuild the screening series'],
+      ['Furlenco / Ajith Karimpana','Confirmed','₹6,00,000','Personal branding, short-form now, long-form from 10 Nov','Resolve Instagram mobile login — blocking delivery'],
+      ['CoinDCX','Confirmed','₹5,50,000','YouTube Shorts','Continue; review Shorts conversion'],
+      ['World Government Summit','Confirmed','—','Instagram + YouTube growth','Priority 1 for November — full strategy now built'],
+      ['CHC / Srini','Prospect — strongly advanced','₹10,00,000 quoted','Instagram + YouTube strategy agreed our side','Final call with Targan, then formal scope confirmation and onboarding'],
+      ['Dr. Velumani','Prospect — awaiting decision','To be confirmed','Proposal shared, discussions progressed well','He reverts with a final decision this week'],
+      ['Dimple','Closed — not proceeding','—','Not aligned on commercials','No further action']];
+    const BIZ_TEAM=[['Strategists',2,'Includes Pravin'],['Short-form editors',3,''],['Long-form editors',2,'Scaling up for Furlenco long-form'],['Graphic designers',2,''],['Total',9,'Against 3 confirmed retainer clients']];
+    const BIZ_PRIO=[
+      ['01','Grow World Government Summit','Build the page with a stronger content, distribution and audience-growth strategy. Research, speaker-run calendar, 55 quote Reels, 48 viral cuts, 50 carousel/static/story ideas and a YouTube long-form plan are all now built and ready to execute.','Pravin','Through November','None'],
+      ['02','Furlenco long-form','Start and scale long-form while continuing to build momentum through short-form.','Pravin','Rollout from 10 November','Cannot log in to Furlenco\u2019s Instagram on mobile — account access support needed'],
+      ['03','New client onboarding','Convert the active pipeline into at least one additional confirmed client and begin onboarding during November.','Pravin','During November','CHC/Srini waiting on the Targan call; Dr. Velumani reverting this week']];
+
+    function drawBusiness(){
+      // revenue bars
+      const rows=BIZ_REV.map((r,i)=>({label:r[0].length>34?r[0].slice(0,34)+'\u2026':r[0],value:r[1],color:dash.colors[i%dash.colors.length]}));
+      drawBars('biz-rev-chart',rows,(v)=>'\u20b9'+(v/100000).toFixed(1)+'L');
+      // clients
+      const ct=document.querySelector('#biz-clients tbody');
+      ct.replaceChildren(...BIZ_CLIENTS.map((r)=>{
+        const tr=document.createElement('tr');
+        r.forEach((v,i)=>{ const td=document.createElement('td');
+          if(i===1){ const b=document.createElement('span');
+            const stage=String(v).split(' ')[0];
+            b.className='sm-verdict '+(stage==='Confirmed'?'v-hit':stage==='Prospect'?'v-typical':'v-below');
+            b.textContent=v; td.append(b); td.className='l'; }
+          else { td.textContent=v; if(i!==2) td.className=(i===0?'l':'t'); }
+          tr.append(td); });
+        return tr; }));
+      // team
+      const tt=document.querySelector('#biz-team tbody');
+      tt.replaceChildren(...BIZ_TEAM.map((r)=>{
+        const tr=document.createElement('tr');
+        r.forEach((v,i)=>{ const td=document.createElement('td'); td.textContent=v;
+          if(i===0) td.className='l'; if(i===2) td.className='t';
+          if(r[0]==='Total') td.style.fontWeight='600';
+          tr.append(td); });
+        return tr; }));
+      // priorities
+      const pg=document.getElementById('biz-priorities');
+      pg.replaceChildren(...BIZ_PRIO.map((p)=>{
+        const c=document.createElement('div'); c.className='sm-acc-card';
+        const n=document.createElement('div'); n.className='sm-post-acc'; n.textContent='Priority '+p[0]+' \u00b7 Owner: '+p[3]+' \u00b7 '+p[4];
+        const t=document.createElement('div'); t.className='sm-post-title'; t.textContent=p[1];
+        const d=document.createElement('div'); d.className='sm-note'; d.style.margin='0'; d.textContent=p[2];
+        c.append(n,t,d);
+        if(p[5]&&p[5]!=='None'){ const b=document.createElement('div'); b.className='sm-note'; b.style.margin='6px 0 0';
+          b.innerHTML=''; const strong=document.createElement('b'); strong.textContent='Blocker: '; strong.style.color='var(--color-bad)';
+          b.append(strong, document.createTextNode(p[5])); c.append(b); }
+        return c; }));
+    }
+
     // ---------- All content ----------
     const CON_COLS = ['client', 'platform', 'type', 'url', 'title', 'published', 'views', 'reach', 'likes', 'comments', 'shares', 'saves', 'engagement_rate', 'new_followers', 'avg_view_pct', 'avg_view_duration'];
     const conSort = { key: 'views', dir: 'desc' };
@@ -1758,6 +1893,7 @@ window.dash = (function () {
       renderTakeaway();
       if (tab === 'overview') drawOverview();
       else if (tab === 'growth') drawGrowth();
+      else if (tab === 'business') drawBusiness();
       else if (tab === 'wgs') drawWGS();
       else if (tab === 'instagram') drawInstagram();
       else if (tab === 'youtube') drawYouTube();
