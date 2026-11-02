@@ -169,25 +169,25 @@ window.dash = (function () {
   <!-- ================= OVERVIEW ================= -->
   <section class="sm-page" id="overview" role="tabpanel">
     <div class="sm-kpis">
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Total audience</div><div class="sm-kv" data-k="ov_followers">—</div><div class="sm-ks">Followers + subscribers now</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Net new followers</div><div class="sm-kv" data-k="ov_net">—</div><div class="sm-ks" data-k-sub="ov_net">In the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Audience growth</div><div class="sm-kv" data-k="ov_growth">—</div><div class="sm-ks">Net new ÷ audience at start</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Views</div><div class="sm-kv" data-k="ov_views">—</div><div class="sm-ks">All accounts, in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Engagements</div><div class="sm-kv" data-k="ov_eng">—</div><div class="sm-ks">Likes, comments, shares, saves</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Engagement rate</div><div class="sm-kv" data-k="ov_rate">—</div><div class="sm-ks">Engagements ÷ views</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Posts &amp; videos</div><div class="sm-kv" data-k="ov_posts">—</div><div class="sm-ks">Published in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Views per post</div><div class="sm-kv" data-k="ov_vpp">—</div><div class="sm-ks">Views ÷ posts published</div></div>
+      <div class="sm-card sm-kpi t-ink" style="background:linear-gradient(135deg,#1f2b4d,#2d3f6e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Total audience</div><div class="sm-kv" data-k="ov_followers">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Followers + subscribers now</div></div>
+      <div class="sm-card sm-kpi t-grow" style="background:linear-gradient(135deg,#0c7a5e,#17a67f);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Net new followers</div><div class="sm-kv" data-k="ov_net">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)" data-k-sub="ov_net">In the period</div></div>
+      <div class="sm-card sm-kpi t-grow" style="background:linear-gradient(135deg,#0c7a5e,#17a67f);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Audience growth</div><div class="sm-kv" data-k="ov_growth">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Net new ÷ audience at start</div></div>
+      <div class="sm-card sm-kpi t-cool" style="background:linear-gradient(135deg,#145e8a,#1c87b8);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Views</div><div class="sm-kv" data-k="ov_views">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">All accounts, in the period</div></div>
+      <div class="sm-card sm-kpi t-eng" style="background:linear-gradient(135deg,#9a6a10,#d6a021);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Engagements</div><div class="sm-kv" data-k="ov_eng">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Likes, comments, shares, saves</div></div>
+      <div class="sm-card sm-kpi t-eng" style="background:linear-gradient(135deg,#9a6a10,#d6a021);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Engagement rate</div><div class="sm-kv" data-k="ov_rate">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Engagements ÷ views</div></div>
+      <div class="sm-card sm-kpi t-plum" style="background:linear-gradient(135deg,#5b2d82,#8347b8);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Posts &amp; videos</div><div class="sm-kv" data-k="ov_posts">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Published in the period</div></div>
+      <div class="sm-card sm-kpi t-plum" style="background:linear-gradient(135deg,#5b2d82,#8347b8);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Views per post</div><div class="sm-kv" data-k="ov_vpp">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Views ÷ posts published</div></div>
     </div>
 
     <div class="sm-grid2">
       <section class="sm-card" id="ov-growth">
-        <h2 class="sm-h2">Audience growth</h2>
+        <div class="sm-sechead"><span class="ic">🚀</span><div><h2>Audience growth</h2></div></div>
         <p class="sm-note">Running total of net new followers since the start of the period, per account.</p>
         <div class="sm-chart" id="ov-growth-chart" data-source="daily"></div>
         <div class="sm-legend" id="ov-growth-legend"></div>
       </section>
       <section class="sm-card" id="ov-share">
-        <h2 class="sm-h2">Audience by account</h2>
+        <div class="sm-sechead"><span class="ic">👥</span><div><h2>Audience by account</h2></div></div>
         <p class="sm-note">Current followers or subscribers.</p>
         <div class="sm-chart sm-chart-short" id="ov-share-chart" data-source="accounts"></div>
       </section>
@@ -196,7 +196,7 @@ window.dash = (function () {
     <section class="sm-card" id="ov-trend">
       <div class="sm-block-head">
         <div>
-          <h2 class="sm-h2">Daily trend</h2>
+          <div class="sm-sechead"><span class="ic">📈</span><div><h2>Daily trend</h2></div></div>
           <p class="sm-note">One line per account. YouTube analytics arrive about two days late; Instagram's newest day can read zero until it settles.</p>
         </div>
         <label class="sm-inline">Metric
@@ -214,7 +214,7 @@ window.dash = (function () {
     </section>
 
     <section class="sm-card" id="ov-accounts">
-      <h2 class="sm-h2">Accounts compared</h2>
+      <div class="sm-sechead"><span class="ic">📊</span><div><h2>Accounts compared</h2></div></div>
       <p class="sm-note">Click a column to sort. Instagram counts new follows only (Meta doesn't report unfollows here); YouTube shows gained and lost.</p>
       <div class="sm-tablewrap">
         <table class="sm-table" id="accounts-table" data-source="accounts" data-row-key="id">
@@ -301,17 +301,17 @@ window.dash = (function () {
     </div>
 
     <div class="sm-kpis">
-      <div class="sm-card sm-kpi"><div class="sm-kl">Monthly revenue</div><div class="sm-kv">₹21.5L</div><div class="sm-ks">3 confirmed clients</div></div>
-      <div class="sm-card sm-kpi"><div class="sm-kl">Salary cost</div><div class="sm-kv">₹5.81L</div><div class="sm-ks">9-person team</div></div>
-      <div class="sm-card sm-kpi"><div class="sm-kl">Profit</div><div class="sm-kv">₹15.69L</div><div class="sm-ks">Before other expenses &amp; tax</div></div>
-      <div class="sm-card sm-kpi"><div class="sm-kl">Margin</div><div class="sm-kv">73.0%</div><div class="sm-ks">Revenue less salaries only</div></div>
-      <div class="sm-card sm-kpi"><div class="sm-kl">Team size</div><div class="sm-kv">9</div><div class="sm-ks">2 strategists, 5 editors, 2 designers</div></div>
-      <div class="sm-card sm-kpi"><div class="sm-kl">Pipeline</div><div class="sm-kv">₹10L</div><div class="sm-ks">Cancer Healer, quoted not closed</div></div>
+      <div class="sm-card sm-kpi t-grow" style="background:linear-gradient(135deg,#0c7a5e,#17a67f);color:#fff;border:none"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Monthly revenue</div><div class="sm-kv">₹21.5L</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">3 confirmed clients</div></div>
+      <div class="sm-card sm-kpi t-ink" style="background:linear-gradient(135deg,#1f2b4d,#2d3f6e);color:#fff;border:none"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Salary cost</div><div class="sm-kv">₹5.81L</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">9-person team</div></div>
+      <div class="sm-card sm-kpi t-grow" style="background:linear-gradient(135deg,#0c7a5e,#17a67f);color:#fff;border:none"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Profit</div><div class="sm-kv">₹15.69L</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Before other expenses &amp; tax</div></div>
+      <div class="sm-card sm-kpi t-eng" style="background:linear-gradient(135deg,#9a6a10,#d6a021);color:#fff;border:none"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Margin</div><div class="sm-kv">73.0%</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Revenue less salaries only</div></div>
+      <div class="sm-card sm-kpi t-cool" style="background:linear-gradient(135deg,#145e8a,#1c87b8);color:#fff;border:none"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Team size</div><div class="sm-kv">9</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">2 strategists, 5 editors, 2 designers</div></div>
+      <div class="sm-card sm-kpi t-plum" style="background:linear-gradient(135deg,#5b2d82,#8347b8);color:#fff;border:none"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Pipeline</div><div class="sm-kv">₹10L</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">CHC, quoted not closed</div></div>
     </div>
 
     <div class="sm-grid2">
       <section class="sm-card">
-        <h2 class="sm-h2">October: the headline</h2>
+        <div class="sm-sechead"><span class="ic">⭐</span><div><h2>October: the headline</h2></div></div>
         <ul class="sm-ins">
           <li class="good"><span><span class="k">Biggest highlight —</span> Dr. Tarang Krishna had his strongest month on record: <b>+56,679 Instagram followers</b> (7.4% growth), 31.0M views, and the YouTube channel passed <b>100,000 subscribers</b>. Cancer-screening Reels averaged 1.0M views each and produced 210,002 shares.</span></li>
           <li class="bad"><span><span class="k">What didn't work —</span> Volume without packaging. <b>28 of 83 Reels reached under 5,000 people</b>, and the same clips were posted two or three times, with repeats reaching 1–3% of the original. Growth was front-loaded: week 1 added 25,228 followers, the final week only 6,649.</span></li>
@@ -319,14 +319,14 @@ window.dash = (function () {
         </ul>
       </section>
       <section class="sm-card">
-        <h2 class="sm-h2">Revenue by client</h2>
+        <div class="sm-sechead"><span class="ic">💰</span><div><h2>Revenue by client</h2></div></div>
         <p class="sm-note">Confirmed monthly retainers.</p>
         <div class="sm-chart sm-chart-short" id="biz-rev-chart"></div>
       </section>
     </div>
 
     <section class="sm-card">
-      <h2 class="sm-h2">Client status</h2>
+      <div class="sm-sechead"><span class="ic">🧾</span><div><h2>Client status</h2></div></div>
       <p class="sm-note">Confirmed work is separated from pipeline. Nothing below is counted as revenue until it is contracted.</p>
       <div class="sm-tablewrap"><table class="sm-table" id="biz-clients"><thead><tr>
         <th data-field="client">Client</th><th data-field="stage">Stage</th><th data-field="rev">Monthly value</th><th data-field="scope">Scope</th><th data-field="next">Next step</th>
@@ -335,7 +335,7 @@ window.dash = (function () {
 
     <div class="sm-grid2">
       <section class="sm-card">
-        <h2 class="sm-h2">Team and capacity</h2>
+        <div class="sm-sechead"><span class="ic">🧑‍💻</span><div><h2>Team and capacity</h2></div></div>
         <p class="sm-note">Nine people against three clients. Manageable today, at capacity tomorrow.</p>
         <div class="sm-tablewrap"><table class="sm-table" id="biz-team"><thead><tr>
           <th data-field="role">Role</th><th data-field="n">People</th><th data-field="note">Note</th>
@@ -343,7 +343,7 @@ window.dash = (function () {
         <p class="sm-note" style="margin-top:12px">Manish is running the Dr. Tarang account and the editing team, which frees Pravin for business growth, new clients and other departments.</p>
       </section>
       <section class="sm-card">
-        <h2 class="sm-h2">Hiring decision</h2>
+        <div class="sm-sechead"><span class="ic">⚖️</span><div><h2>Hiring decision</h2></div></div>
         <ul class="sm-ins">
           <li><span><span class="k">Decision needed now: none.</span> Hold the proposed hiring.</span></li>
           <li><span><span class="k">Trigger —</span> Hire only once one additional client is confirmed and onboarded, so incremental cost is backed by contracted revenue rather than pipeline.</span></li>
@@ -354,12 +354,12 @@ window.dash = (function () {
     </div>
 
     <section class="sm-card">
-      <h2 class="sm-h2">Top 3 priorities for November</h2>
+      <div class="sm-sechead"><span class="ic">🎯</span><div><h2>Top 3 priorities for November</h2></div></div>
       <div class="sm-dd-acc" id="biz-priorities"></div>
     </section>
 
     <section class="sm-card">
-      <h2 class="sm-h2">November targets</h2>
+      <div class="sm-sechead"><span class="ic">🏁</span><div><h2>November targets</h2></div></div>
       <ul class="sm-ins">
         <li class="good"><span><span class="k">Revenue —</span> Hold the confirmed base of <b>₹21.5L a month</b>, with upside from new onboarding.</span></li>
         <li class="good"><span><span class="k">Clients —</span> Retain and deliver strongly for all three current clients, and close and onboard <b>at least one additional client</b>.</span></li>
@@ -386,20 +386,20 @@ window.dash = (function () {
 
     <div class="sm-grid2">
       <section class="sm-card">
-        <h2 class="sm-h2">Month on month</h2>
+        <div class="sm-sechead"><span class="ic">↔️</span><div><h2>Month on month</h2></div></div>
         <p class="sm-note">How this client's key numbers moved against the previous month.</p>
         <div class="sm-tablewrap"><table class="sm-table" id="mo-mom"><thead><tr>
           <th data-field="metric">Metric</th><th data-field="prev">Previous</th><th data-field="curr">This month</th><th data-field="chg">Change</th>
         </tr></thead><tbody></tbody></table></div>
       </section>
       <section class="sm-card">
-        <h2 class="sm-h2">The month in words</h2>
+        <div class="sm-sechead"><span class="ic">📝</span><div><h2>The month in words</h2></div></div>
         <ul class="sm-ins" id="mo-notes"></ul>
       </section>
     </div>
 
     <section class="sm-card">
-      <h2 class="sm-h2">Top content of the month</h2>
+      <div class="sm-sechead"><span class="ic">🏆</span><div><h2>Top content of the month</h2></div></div>
       <p class="sm-note">The pieces that carried the month, with links.</p>
       <div class="sm-tablewrap"><table class="sm-table" id="mo-top"><thead><tr>
         <th data-field="platform">Platform</th><th data-field="title">Title</th><th data-field="url">Link</th><th data-field="views">Views</th><th data-field="reach">Reach</th><th data-field="shares">Shares</th><th data-field="saves">Saves</th>
@@ -407,7 +407,7 @@ window.dash = (function () {
     </section>
 
     <section class="sm-card">
-      <h2 class="sm-h2">All clients this month</h2>
+      <div class="sm-sechead"><span class="ic">📋</span><div><h2>All clients this month</h2></div></div>
       <p class="sm-note">Every client side by side, so the whole book of business reads in one view.</p>
       <div class="sm-tablewrap"><table class="sm-table" id="mo-all"><thead><tr>
         <th data-field="client">Client</th><th data-field="plat">Platforms</th><th data-field="aud">Audience</th><th data-field="new">New followers</th><th data-field="growth">Growth</th><th data-field="views">Views</th><th data-field="posts">Posts</th><th data-field="status">Delivery</th>
@@ -426,16 +426,16 @@ window.dash = (function () {
     </div>
 
     <div class="sm-kpis">
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Total audience</div><div class="sm-kv" data-k="wgs_aud">—</div><div class="sm-ks">Instagram + YouTube now</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Net new followers</div><div class="sm-kv" data-k="wgs_net">—</div><div class="sm-ks">In the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Audience growth</div><div class="sm-kv" data-k="wgs_growth">—</div><div class="sm-ks">Net new ÷ audience at start</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Instagram followers</div><div class="sm-kv" data-k="wgs_ig">—</div><div class="sm-ks">Now</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">YouTube subscribers</div><div class="sm-kv" data-k="wgs_yt">—</div><div class="sm-ks">Now</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Views</div><div class="sm-kv" data-k="wgs_views">—</div><div class="sm-ks">Both platforms, in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Engagement rate</div><div class="sm-kv" data-k="wgs_rate">—</div><div class="sm-ks">Engagements ÷ views</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Posts &amp; videos</div><div class="sm-kv" data-k="wgs_posts">—</div><div class="sm-ks">Published in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Instagram reach</div><div class="sm-kv" data-k="wgs_reach">—</div><div class="sm-ks">Accounts reached, summed daily</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">YouTube watch time</div><div class="sm-kv" data-k="wgs_hours">—</div><div class="sm-ks">Hours watched</div></div>
+      <div class="sm-card sm-kpi t-ink" style="background:linear-gradient(135deg,#1f2b4d,#2d3f6e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Total audience</div><div class="sm-kv" data-k="wgs_aud">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Instagram + YouTube now</div></div>
+      <div class="sm-card sm-kpi t-grow" style="background:linear-gradient(135deg,#0c7a5e,#17a67f);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Net new followers</div><div class="sm-kv" data-k="wgs_net">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">In the period</div></div>
+      <div class="sm-card sm-kpi t-grow" style="background:linear-gradient(135deg,#0c7a5e,#17a67f);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Audience growth</div><div class="sm-kv" data-k="wgs_growth">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Net new ÷ audience at start</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Instagram followers</div><div class="sm-kv" data-k="wgs_ig">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Now</div></div>
+      <div class="sm-card sm-kpi t-yt" style="background:linear-gradient(135deg,#b4231c,#e8433a);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">YouTube subscribers</div><div class="sm-kv" data-k="wgs_yt">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Now</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Views</div><div class="sm-kv" data-k="wgs_views">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Both platforms, in the period</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Engagement rate</div><div class="sm-kv" data-k="wgs_rate">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Engagements ÷ views</div></div>
+      <div class="sm-card sm-kpi t-ink" style="background:linear-gradient(135deg,#1f2b4d,#2d3f6e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Posts &amp; videos</div><div class="sm-kv" data-k="wgs_posts">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Published in the period</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Instagram reach</div><div class="sm-kv" data-k="wgs_reach">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Accounts reached, summed daily</div></div>
+      <div class="sm-card sm-kpi t-yt" style="background:linear-gradient(135deg,#b4231c,#e8433a);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">YouTube watch time</div><div class="sm-kv" data-k="wgs_hours">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Hours watched</div></div>
     </div>
 
     <section class="sm-card">
@@ -445,7 +445,7 @@ window.dash = (function () {
     </section>
 
     <section class="sm-card">
-      <h2 class="sm-h2">What's working, what isn't</h2>
+      <div class="sm-sechead"><span class="ic">💡</span><div><h2>What's working, what isn't</h2></div></div>
       <p class="sm-note">Read automatically from this period's numbers. “Typical” means the account's median post, so each account is compared with itself. The newest posts have had less time to collect views.</p>
       <ul class="sm-ins" id="dd-ins" data-source="scored formats account_growth"></ul>
     </section>
@@ -469,7 +469,7 @@ window.dash = (function () {
     <div class="sm-latest" id="dd-latest" data-source="scored"></div>
 
     <section class="sm-card">
-      <h2 class="sm-h2">Format scorecard</h2>
+      <div class="sm-sechead"><span class="ic">🎬</span><div><h2>Format scorecard</h2></div></div>
       <p class="sm-note">Which formats pull their weight. Save rate and share rate are % of people reached (Instagram) or views (YouTube shares); Followers / 1K is new followers per 1,000 reached (Instagram) or viewed (YouTube); Instagram doesn't report follows for Reels, so that cell is blank for Reels.</p>
       <div class="sm-tablewrap"><table class="sm-table" id="dd-formats" data-source="formats" data-row-key="key"><thead><tr><th data-field="account">Account</th><th data-field="type">Format</th><th data-field="posts">Posts</th><th data-field="median_views">Typical views</th><th data-field="median_reach">Typical reach</th><th data-field="avg_views">Avg views</th><th data-field="engagement_rate">Eng. rate</th><th data-field="save_rate">Save rate</th><th data-field="share_rate">Share rate</th><th data-field="followers_per_1k">Followers / 1K</th><th data-field="avg_view_pct">Avg % viewed</th></tr></thead><tbody></tbody></table></div>
     </section>
@@ -496,7 +496,7 @@ window.dash = (function () {
     <section class="sm-card">
       <div class="sm-block-head">
         <div>
-          <h2 class="sm-h2">Every post and video, scored</h2>
+          <div class="sm-sechead"><span class="ic">🔍</span><div><h2>Every post and video, scored</h2></div></div>
           <p class="sm-note">Published in the period. Verdict: Hit = 2× typical or more; Above = 1.2×+; Typical = 0.8–1.2×; Below = under 0.8×. Click a column to sort.</p>
         </div>
         <input type="search" id="dd-search" class="sm-search" placeholder="Search titles" aria-label="Search posts">
@@ -509,15 +509,15 @@ window.dash = (function () {
   <!-- ================= INSTAGRAM ================= -->
   <section class="sm-page" id="instagram" role="tabpanel" hidden>
     <div class="sm-kpis">
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Followers</div><div class="sm-kv" data-k="ig_followers">—</div><div class="sm-ks">Now</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">New followers</div><div class="sm-kv" data-k="ig_new">—</div><div class="sm-ks">In the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Reach</div><div class="sm-kv" data-k="ig_reach">—</div><div class="sm-ks">Accounts reached, summed daily</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Views</div><div class="sm-kv" data-k="ig_views">—</div><div class="sm-ks">All content, in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Interactions</div><div class="sm-kv" data-k="ig_eng">—</div><div class="sm-ks">All interactions</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Engagement rate</div><div class="sm-kv" data-k="ig_rate">—</div><div class="sm-ks">Interactions ÷ views</div></div>
-      <div class="sm-card sm-kpi" data-source="content"><div class="sm-kl">Saves</div><div class="sm-kv" data-k="ig_saves">—</div><div class="sm-ks">On posts published in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="content"><div class="sm-kl">Shares</div><div class="sm-kv" data-k="ig_shares">—</div><div class="sm-ks">On posts published in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Posts</div><div class="sm-kv" data-k="ig_posts">—</div><div class="sm-ks">Published in the period</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Followers</div><div class="sm-kv" data-k="ig_followers">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Now</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">New followers</div><div class="sm-kv" data-k="ig_new">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">In the period</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Reach</div><div class="sm-kv" data-k="ig_reach">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Accounts reached, summed daily</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Views</div><div class="sm-kv" data-k="ig_views">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">All content, in the period</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Interactions</div><div class="sm-kv" data-k="ig_eng">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">All interactions</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Engagement rate</div><div class="sm-kv" data-k="ig_rate">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Interactions ÷ views</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="content"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Saves</div><div class="sm-kv" data-k="ig_saves">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">On posts published in the period</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="content"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Shares</div><div class="sm-kv" data-k="ig_shares">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">On posts published in the period</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Posts</div><div class="sm-kv" data-k="ig_posts">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Published in the period</div></div>
     </div>
 
     <section class="sm-card" id="ig-daily">
@@ -541,7 +541,7 @@ window.dash = (function () {
 
     <div class="sm-grid2">
       <section class="sm-card" id="ig-formats">
-        <h2 class="sm-h2">Which format works best</h2>
+        <div class="sm-sechead"><span class="ic">🧪</span><div><h2>Which format works best</h2></div></div>
         <p class="sm-note">Reels, carousels and images published in the period, per profile.</p>
         <div class="sm-tablewrap">
           <table class="sm-table" id="formats-table" data-source="ig_formats" data-row-key="key">
@@ -567,7 +567,7 @@ window.dash = (function () {
     </div>
 
     <section class="sm-card" id="ig-top">
-      <h2 class="sm-h2">Top 10 Instagram posts</h2>
+      <div class="sm-sechead"><span class="ic">📸</span><div><h2>Top 10 Instagram posts</h2></div></div>
       <p class="sm-note">Posts published in the period, by views.</p>
       <div class="sm-tablewrap">
         <table class="sm-table" id="ig-top-table" data-source="content" data-row-key="id">
@@ -595,18 +595,18 @@ window.dash = (function () {
   <!-- ================= YOUTUBE ================= -->
   <section class="sm-page" id="youtube" role="tabpanel" hidden>
     <div class="sm-kpis">
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Subscribers</div><div class="sm-kv" data-k="yt_subs">—</div><div class="sm-ks">Now</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Net subscribers</div><div class="sm-kv" data-k="yt_net">—</div><div class="sm-ks" data-k-sub="yt_net">Gained minus lost</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Views</div><div class="sm-kv" data-k="yt_views">—</div><div class="sm-ks">In the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Watch time</div><div class="sm-kv" data-k="yt_hours">—</div><div class="sm-ks">Hours watched</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Avg view duration</div><div class="sm-kv" data-k="yt_avd">—</div><div class="sm-ks">Minutes:seconds per view</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Engagements</div><div class="sm-kv" data-k="yt_eng">—</div><div class="sm-ks">Likes, comments, shares</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Engagement rate</div><div class="sm-kv" data-k="yt_rate">—</div><div class="sm-ks">Engagements ÷ views</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Videos published</div><div class="sm-kv" data-k="yt_posts">—</div><div class="sm-ks">In the period</div></div>
+      <div class="sm-card sm-kpi t-yt" style="background:linear-gradient(135deg,#b4231c,#e8433a);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Subscribers</div><div class="sm-kv" data-k="yt_subs">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Now</div></div>
+      <div class="sm-card sm-kpi t-yt" style="background:linear-gradient(135deg,#b4231c,#e8433a);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Net subscribers</div><div class="sm-kv" data-k="yt_net">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)" data-k-sub="yt_net">Gained minus lost</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Views</div><div class="sm-kv" data-k="yt_views">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">In the period</div></div>
+      <div class="sm-card sm-kpi t-yt" style="background:linear-gradient(135deg,#b4231c,#e8433a);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Watch time</div><div class="sm-kv" data-k="yt_hours">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Hours watched</div></div>
+      <div class="sm-card sm-kpi t-yt" style="background:linear-gradient(135deg,#b4231c,#e8433a);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Avg view duration</div><div class="sm-kv" data-k="yt_avd">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Minutes:seconds per view</div></div>
+      <div class="sm-card sm-kpi t-yt" style="background:linear-gradient(135deg,#b4231c,#e8433a);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Engagements</div><div class="sm-kv" data-k="yt_eng">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Likes, comments, shares</div></div>
+      <div class="sm-card sm-kpi t-ig" style="background:linear-gradient(135deg,#8a3fb5,#d6246e);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Engagement rate</div><div class="sm-kv" data-k="yt_rate">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">Engagements ÷ views</div></div>
+      <div class="sm-card sm-kpi t-yt" style="background:linear-gradient(135deg,#b4231c,#e8433a);color:#fff;border:none" data-source="accounts"><div class="sm-kl" style="color:rgba(255,255,255,.85)">Videos published</div><div class="sm-kv" data-k="yt_posts">—</div><div class="sm-ks" style="color:rgba(255,255,255,.75)">In the period</div></div>
     </div>
 
     <section class="sm-card" id="yt-subs">
-      <h2 class="sm-h2">Subscribers gained and lost per day</h2>
+      <div class="sm-sechead"><span class="ic">📶</span><div><h2>Subscribers gained and lost per day</h2></div></div>
       <p class="sm-note">Solid line: gained. Dashed line: lost.</p>
       <div class="sm-chart" id="yt-subs-chart" data-source="daily"></div>
       <div class="sm-legend" id="yt-subs-legend"></div>
@@ -631,7 +631,7 @@ window.dash = (function () {
     </section>
 
     <section class="sm-card" id="yt-top">
-      <h2 class="sm-h2">Top 10 YouTube videos</h2>
+      <div class="sm-sechead"><span class="ic">▶️</span><div><h2>Top 10 YouTube videos</h2></div></div>
       <p class="sm-note">By views earned in the period, including older videos still getting views. Average % viewed and average view duration show retention. YouTube doesn't share thumbnail click-through rate or impressions through this connection.</p>
       <div class="sm-tablewrap">
         <table class="sm-table" id="yt-top-table" data-source="content" data-row-key="id">
@@ -660,7 +660,7 @@ window.dash = (function () {
     <section class="sm-card" id="content-section">
       <div class="sm-block-head">
         <div>
-          <h2 class="sm-h2">All posts and videos</h2>
+          <div class="sm-sechead"><span class="ic">🎞️</span><div><h2>All posts and videos</h2></div></div>
           <p class="sm-note">Instagram posts published in the period, and YouTube videos published in it or among each channel's ten most-viewed in it. Click a column to sort.</p>
         </div>
         <input type="search" id="content-search" class="sm-search" placeholder="Search titles" aria-label="Search content">
@@ -798,6 +798,48 @@ window.dash = (function () {
   .sm-cc-grid span { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
   .sm-up { color: var(--color-ok); }
   .sm-down { color: var(--color-bad); }
+  /* ===== colour-tile KPIs ===== */
+  .sm-kpi { position: relative; overflow: hidden; border: none; background: var(--color-fg); color: #fff; padding: 1.35rem 1.4rem; min-height: 7.6rem; justify-content: space-between; }
+  .sm-kpi .sm-kl { color: rgba(255,255,255,.82); }
+  .sm-kpi .sm-kv { color: #fff; font-family: var(--font-anthropic-sans); font-weight: 700; letter-spacing: -.03em; }
+  .sm-kpi .sm-ks { color: rgba(255,255,255,.74); }
+  .sm-kpi::after { content: ''; position: absolute; right: -28px; bottom: -34px; width: 118px; height: 118px; border-radius: 50%; background: rgba(255,255,255,.1); }
+  .sm-kpi.t-ink { background: linear-gradient(135deg,#1f2b4d,#2d3f6e); }
+  .sm-kpi.t-ig { background: linear-gradient(135deg,#8a3fb5,#d6246e); }
+  .sm-kpi.t-yt { background: linear-gradient(135deg,#b4231c,#e8433a); }
+  .sm-kpi.t-grow { background: linear-gradient(135deg,#0c7a5e,#17a67f); }
+  .sm-kpi.t-eng { background: linear-gradient(135deg,#9a6a10,#d6a021); }
+  .sm-kpi.t-cool { background: linear-gradient(135deg,#145e8a,#1c87b8); }
+  .sm-kpi.t-plum { background: linear-gradient(135deg,#5b2d82,#8347b8); }
+  .sm-delta { display: inline-flex; align-items: center; gap: 5px; font-size: .82rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: rgba(255,255,255,.18); color: #fff; align-self: flex-start; }
+
+  /* ===== section headers with icon ===== */
+  .sm-sechead { display: flex; align-items: center; gap: 12px; margin: .35rem 0 0; }
+  .sm-sechead .ic { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; font-size: 17px; flex: none; background: color-mix(in srgb, var(--color-fg) 8%, transparent); }
+  .sm-sechead h2 { margin: 0; font-size: 1.35rem; font-weight: var(--cds-font-weight-medium); letter-spacing: -.015em; }
+  .sm-sechead p { margin: 2px 0 0; font-size: .85rem; color: var(--color-fg-muted); }
+
+  /* ===== platform accent on cards ===== */
+  .acc-ig { box-shadow: inset 0 3px 0 0 #d6246e; }
+  .acc-yt { box-shadow: inset 0 3px 0 0 #e8433a; }
+  .acc-biz { box-shadow: inset 0 3px 0 0 #17a67f; }
+
+  /* ===== tidier tables ===== */
+  .sm-table thead th { background: color-mix(in srgb, var(--color-fg) 5%, var(--color-panel)); font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: var(--color-fg-muted); border-bottom: 1px solid var(--color-border-line); }
+  .sm-table tbody tr:nth-child(even) td { background: transparent; }
+  .sm-table tbody tr:hover td { background: color-mix(in srgb, var(--color-fg) 4%, var(--color-panel)); }
+  .sm-table td { border-right: none; }
+  .sm-table th { border-right: none; }
+
+  /* ===== misc polish ===== */
+  .sm-legend { font-size: .85rem; }
+  .sm-select, .sm-search, .sm-btn { padding: 9px 13px; border-radius: 9px; font-size: .9rem; }
+  .sm-verdict { padding: 4px 11px; font-size: .78rem; border-radius: 999px; }
+  .sm-cat { padding: 4px 12px; font-size: .78rem; }
+  .sm-post-stats b { font-family: var(--font-anthropic-sans); font-weight: 700; }
+  .sm-acc-from { font-family: var(--font-anthropic-sans); font-weight: 700; font-size: 1.5rem; letter-spacing: -.02em; }
+  .sm-cc-big { font-family: var(--font-anthropic-sans); font-weight: 700; letter-spacing: -.025em; }
+  .sm-foot { padding-top: .5rem; border-top: 1px solid var(--color-border-line); }
 </style>
 
 <script>
@@ -1349,6 +1391,17 @@ window.dash = (function () {
       });
     }
     function setKpi(key, text) { const el = document.querySelector('[data-k="' + key + '"]'); if (el) { el.classList.remove('dash-skeleton'); el.textContent = text; } }
+    function setDelta(key, frac) {
+      const el = document.querySelector('[data-k="' + key + '"]');
+      if (!el) return;
+      const card = el.closest('.sm-kpi');
+      if (!card) return;
+      let d = card.querySelector('.sm-delta');
+      if (frac === null || frac === undefined || !isFinite(frac)) { if (d) d.remove(); return; }
+      if (!d) { d = document.createElement('div'); d.className = 'sm-delta'; card.append(d); }
+      const up = frac >= 0;
+      d.textContent = (up ? '▲ ' : '▼ ') + fmtPct(Math.abs(frac)) + ' vs first half';
+    }
     function kpiState(page, status) {
       document.querySelectorAll('#' + page + ' .sm-kv').forEach((el) => { el.textContent = '—'; el.classList.toggle('dash-skeleton', status === 'loading'); });
     }
@@ -1406,6 +1459,19 @@ window.dash = (function () {
         setKpi('ov_rate', views ? fmtPct(eng / views) : '—');
         setKpi('ov_posts', rows.length ? fmtInt(posts) : '—');
         setKpi('ov_vpp', posts ? fmtBig(views / posts) : '—');
+        // movement indicators: second half of the period vs the first half
+        const dd = dash.data('daily');
+        if (dd.status === 'ok') {
+          const mine = dd.data.filter(picked);
+          const days = Array.from(new Set(mine.map((r) => r.date))).sort();
+          const half = Math.floor(days.length / 2);
+          const firstDays = new Set(days.slice(0, half)), lastDays = new Set(days.slice(days.length - half));
+          const sumOver = (set, f) => mine.filter((r) => set.has(r.date)).reduce((t, r) => t + (Number(r[f]) || 0), 0);
+          const pct = (f) => { const a = sumOver(firstDays, f), b = sumOver(lastDays, f); return a > 0 ? (b - a) / a : null; };
+          setDelta('ov_net', pct('net_followers'));
+          setDelta('ov_views', pct('views'));
+          setDelta('ov_eng', pct('engagements'));
+        }
         drawBars('ov-share-chart', rows.slice().sort((x, y) => y.followers - x.followers).map((r) => ({ label: r.account, value: r.followers, color: colorOf(r.id) })), fmtBig);
         markSort(accTable, 'data-sort', accSort);
         fillTable(accTable, sorter(rows, accSort.key, accSort.dir), ACC_COLS, (r) => r.id);
@@ -1856,13 +1922,13 @@ window.dash = (function () {
 
 
     // ---------- Business ----------
-    const BIZ_REV=[['Dr. Krishna Cancer Healer / Dr. Tarang',1000000],['Furlenco / Ajith Karimpana',600000],['CoinDCX',550000]];
+    const BIZ_REV=[['Dr. Tarang Krishna',1000000],['Furlenco / Ajith Karimpana',600000],['CoinDCX',550000]];
     const BIZ_CLIENTS=[
-      ['Dr. Krishna Cancer Healer / Dr. Tarang','Confirmed','₹10,00,000','Instagram + YouTube, full service','Sustain October momentum; rebuild the screening series'],
+      ['Dr. Tarang Krishna','Confirmed','₹10,00,000','Instagram + YouTube, full service','Sustain October momentum; rebuild the screening series'],
       ['Furlenco / Ajith Karimpana','Confirmed','₹6,00,000','Personal branding, short-form now, long-form from 10 Nov','Instagram mobile login still broken; Meta not responding'],
       ['CoinDCX','Confirmed','₹5,50,000','YouTube Shorts','Continue; review Shorts conversion'],
       ['World Government Summit','Confirmed','—','Instagram + YouTube growth','Priority 1 for November — full strategy now built'],
-      ['Cancer Healer (CHC)','Prospect — strongly advanced','₹10,00,000 quoted','Instagram + YouTube strategy agreed our side. Dr. Tarang Krishna\u2019s brand.','Final call, then formal scope confirmation and onboarding'],
+      ['CHC (Cancer Healer Center)','Prospect — strongly advanced','₹10,00,000 quoted','Instagram + YouTube strategy agreed from our side','Final call, then formal scope confirmation and onboarding'],
       ['Dr. Velumani','Prospect — awaiting decision','To be confirmed','Proposal shared, discussions progressed well','He reverts with a final decision this week'],
       ['Dimple','Closed — not proceeding','—','Not aligned on commercials','No further action']];
     const BIZ_TEAM=[['Strategists',2,'Includes Pravin'],['Short-form editors',3,''],['Long-form editors',2,'Scaling up for Furlenco long-form'],['Graphic designers',2,''],['Total',9,'Against 3 confirmed retainer clients']];
@@ -1997,11 +2063,13 @@ window.dash = (function () {
       const tp=document.querySelector('#mo-top tbody');
       const al=document.querySelector('#mo-all tbody');
       if(!d){ kp.replaceChildren(); mom.replaceChildren(); nt.replaceChildren(); tp.replaceChildren(); return; }
-      kp.replaceChildren(...d.kpis.map((k)=>{
+      kp.replaceChildren(...d.kpis.map((k,i)=>{
+        const TIL=['linear-gradient(135deg,#1f2b4d,#2d3f6e)','linear-gradient(135deg,#8a3fb5,#d6246e)','linear-gradient(135deg,#0c7a5e,#17a67f)','linear-gradient(135deg,#b4231c,#e8433a)','linear-gradient(135deg,#145e8a,#1c87b8)','linear-gradient(135deg,#9a6a10,#d6a021)'];
         const card=document.createElement('div'); card.className='sm-card sm-kpi';
-        const l=document.createElement('div'); l.className='sm-kl'; l.textContent=k[0];
+        card.setAttribute('style','background:'+TIL[i%TIL.length]+';color:#fff;border:none');
+        const l=document.createElement('div'); l.className='sm-kl'; l.setAttribute('style','color:rgba(255,255,255,.85)'); l.textContent=k[0];
         const v=document.createElement('div'); v.className='sm-kv'; v.textContent=k[1];
-        const sub=document.createElement('div'); sub.className='sm-ks'; sub.textContent=k[2];
+        const sub=document.createElement('div'); sub.className='sm-ks'; sub.setAttribute('style','color:rgba(255,255,255,.75)'); sub.textContent=k[2];
         card.append(l,v,sub); return card; }));
       mom.replaceChildren(...d.mom.map((r)=>{
         const tr=document.createElement('tr');
