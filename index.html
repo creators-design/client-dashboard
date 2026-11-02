@@ -34,7 +34,7 @@
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; background: var(--color-bg); color: var(--color-fg); font-family: var(--font-anthropic-sans); -webkit-font-smoothing: antialiased; }
-  #dash-root { max-width: 1240px; margin: 0 auto; padding: max(24px, env(safe-area-inset-top)) clamp(14px, 3vw, 32px) max(40px, env(safe-area-inset-bottom)); }
+  #dash-root { max-width: 1320px; margin: 0 auto; padding: max(28px, env(safe-area-inset-top)) clamp(16px, 3vw, 40px) max(48px, env(safe-area-inset-bottom)); }
   .snap-note { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); padding: 8px 12px; border: 1px dashed var(--color-border-line); border-radius: var(--cds-radius); margin-bottom: var(--cds-gap-md); }
   .snap-note b { color: var(--color-fg); font-weight: var(--cds-font-weight-medium); }
   .dash-skeleton { background: var(--color-border-line) !important; color: transparent !important; border-radius: 6px; }
@@ -49,18 +49,60 @@
   .sm-verdict.v-typical { background: color-mix(in srgb, var(--color-fg) 8%, transparent); color: var(--color-fg-muted); }
   .sm-verdict.v-below { background: color-mix(in srgb, var(--color-bad) 14%, transparent); color: var(--color-bad); }
   .sm-dd-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: var(--cds-gap-md); }
-  .sm-dd-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0 0 4px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .sm-dd-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: 1.9rem; margin: 0 0 8px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; letter-spacing: -.02em; }
   .sm-dd-acc { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--cds-gap-md); }
-  .sm-acc-card { border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-md); display: flex; flex-direction: column; gap: 8px; }
+  .sm-acc-card { border: 1px solid var(--color-border-line); border-radius: 12px; padding: 1.2rem 1.3rem; display: flex; flex-direction: column; gap: 10px; background: var(--color-bg); }
   .sm-acc-from { font-family: var(--font-anthropic-serif); font-size: 1.35rem; font-variant-numeric: tabular-nums; }
   .sm-acc-from .arrow { color: var(--color-fg-muted); margin: 0 6px; }
   .sm-ins { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; min-height: 4rem; }
-  .sm-ins li { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: var(--cds-radius); background: var(--color-bg); border: 1px solid var(--color-border-line); line-height: 1.45; font-size: var(--cds-font-size-body); }
+  .sm-ins li { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 10px; background: var(--color-bg); border: 1px solid var(--color-border-line); line-height: 1.55; font-size: 0.95rem; }
   .sm-ins li::before { content: ''; flex: none; width: 8px; height: 8px; margin-top: 7px; border-radius: 50%; background: var(--color-fg-muted); }
   .sm-ins li.good::before { background: var(--color-ok); }
   .sm-ins li.bad::before { background: var(--color-bad); }
   .sm-ins li .k { font-weight: var(--cds-font-weight-medium); }
   .sm-x { font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-title); line-height: 1; }
+  /* ===== colour-tile KPIs ===== */
+  .sm-kpi { position: relative; overflow: hidden; border: none; color: #fff; padding: 1.35rem 1.4rem; min-height: 7.6rem; justify-content: space-between; }
+  .sm-kpi .sm-kl { color: rgba(255,255,255,.82); }
+  .sm-kpi .sm-kv { color: #fff; font-family: var(--font-anthropic-sans); font-weight: 700; letter-spacing: -.03em; }
+  .sm-kpi .sm-ks { color: rgba(255,255,255,.74); }
+  .sm-kpi::after { content: ''; position: absolute; right: -28px; bottom: -34px; width: 118px; height: 118px; border-radius: 50%; background: rgba(255,255,255,.1); }
+  .t-ink  { background: linear-gradient(135deg,#1f2b4d,#2d3f6e); }
+  .t-ig   { background: linear-gradient(135deg,#8a3fb5,#d6246e); }
+  .t-yt   { background: linear-gradient(135deg,#b4231c,#e8433a); }
+  .t-grow { background: linear-gradient(135deg,#0c7a5e,#17a67f); }
+  .t-eng  { background: linear-gradient(135deg,#9a6a10,#d6a021); }
+  .t-cool { background: linear-gradient(135deg,#145e8a,#1c87b8); }
+  .t-plum { background: linear-gradient(135deg,#5b2d82,#8347b8); }
+  .sm-delta { display: inline-flex; align-items: center; gap: 5px; font-size: .82rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: rgba(255,255,255,.18); color: #fff; align-self: flex-start; }
+
+  /* ===== section headers with icon ===== */
+  .sm-sechead { display: flex; align-items: center; gap: 12px; margin: .35rem 0 0; }
+  .sm-sechead .ic { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; font-size: 17px; flex: none; background: color-mix(in srgb, var(--color-fg) 8%, transparent); }
+  .sm-sechead h2 { margin: 0; font-size: 1.35rem; font-weight: var(--cds-font-weight-medium); letter-spacing: -.015em; }
+  .sm-sechead p { margin: 2px 0 0; font-size: .85rem; color: var(--color-fg-muted); }
+
+  /* ===== platform accent on cards ===== */
+  .acc-ig { box-shadow: inset 0 3px 0 0 #d6246e; }
+  .acc-yt { box-shadow: inset 0 3px 0 0 #e8433a; }
+  .acc-biz { box-shadow: inset 0 3px 0 0 #17a67f; }
+
+  /* ===== tidier tables ===== */
+  .sm-table thead th { background: color-mix(in srgb, var(--color-fg) 5%, var(--color-panel)); font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: var(--color-fg-muted); border-bottom: 1px solid var(--color-border-line); }
+  .sm-table tbody tr:nth-child(even) td { background: transparent; }
+  .sm-table tbody tr:hover td { background: color-mix(in srgb, var(--color-fg) 4%, var(--color-panel)); }
+  .sm-table td { border-right: none; }
+  .sm-table th { border-right: none; }
+
+  /* ===== misc polish ===== */
+  .sm-legend { font-size: .85rem; }
+  .sm-select, .sm-search, .sm-btn { padding: 9px 13px; border-radius: 9px; font-size: .9rem; }
+  .sm-verdict { padding: 4px 11px; font-size: .78rem; border-radius: 999px; }
+  .sm-cat { padding: 4px 12px; font-size: .78rem; }
+  .sm-post-stats b { font-family: var(--font-anthropic-sans); font-weight: 700; }
+  .sm-acc-from { font-family: var(--font-anthropic-sans); font-weight: 700; font-size: 1.5rem; letter-spacing: -.02em; }
+  .sm-cc-big { font-family: var(--font-anthropic-sans); font-weight: 700; letter-spacing: -.025em; }
+  .sm-foot { padding-top: .5rem; border-top: 1px solid var(--color-border-line); }
 </style>
 <script>
 window.dash = (function () {
@@ -159,6 +201,7 @@ window.dash = (function () {
     <button type="button" role="tab" data-tab="overview">Overview</button>
     <button type="button" role="tab" data-tab="growth">Client growth</button>
     <button type="button" role="tab" data-tab="business">Business</button>
+    <button type="button" role="tab" data-tab="monthly">Monthly reports</button>
     <button type="button" role="tab" data-tab="wgs">WGS deep dive</button>
     <button type="button" role="tab" data-tab="instagram">Instagram</button>
     <button type="button" role="tab" data-tab="youtube">YouTube</button>
@@ -168,25 +211,25 @@ window.dash = (function () {
   <!-- ================= OVERVIEW ================= -->
   <section class="sm-page" id="overview" role="tabpanel">
     <div class="sm-kpis">
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Total audience</div><div class="sm-kv" data-k="ov_followers">—</div><div class="sm-ks">Followers + subscribers now</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Net new followers</div><div class="sm-kv" data-k="ov_net">—</div><div class="sm-ks" data-k-sub="ov_net">In the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Audience growth</div><div class="sm-kv" data-k="ov_growth">—</div><div class="sm-ks">Net new ÷ audience at start</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Views</div><div class="sm-kv" data-k="ov_views">—</div><div class="sm-ks">All accounts, in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Engagements</div><div class="sm-kv" data-k="ov_eng">—</div><div class="sm-ks">Likes, comments, shares, saves</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Engagement rate</div><div class="sm-kv" data-k="ov_rate">—</div><div class="sm-ks">Engagements ÷ views</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Posts &amp; videos</div><div class="sm-kv" data-k="ov_posts">—</div><div class="sm-ks">Published in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Views per post</div><div class="sm-kv" data-k="ov_vpp">—</div><div class="sm-ks">Views ÷ posts published</div></div>
+      <div class="sm-card sm-kpi t-ink" data-source="accounts"><div class="sm-kl">Total audience</div><div class="sm-kv" data-k="ov_followers">—</div><div class="sm-ks">Followers + subscribers now</div></div>
+      <div class="sm-card sm-kpi t-grow" data-source="accounts"><div class="sm-kl">Net new followers</div><div class="sm-kv" data-k="ov_net">—</div><div class="sm-ks" data-k-sub="ov_net">In the period</div></div>
+      <div class="sm-card sm-kpi t-grow" data-source="accounts"><div class="sm-kl">Audience growth</div><div class="sm-kv" data-k="ov_growth">—</div><div class="sm-ks">Net new ÷ audience at start</div></div>
+      <div class="sm-card sm-kpi t-cool" data-source="accounts"><div class="sm-kl">Views</div><div class="sm-kv" data-k="ov_views">—</div><div class="sm-ks">All accounts, in the period</div></div>
+      <div class="sm-card sm-kpi t-eng" data-source="accounts"><div class="sm-kl">Engagements</div><div class="sm-kv" data-k="ov_eng">—</div><div class="sm-ks">Likes, comments, shares, saves</div></div>
+      <div class="sm-card sm-kpi t-eng" data-source="accounts"><div class="sm-kl">Engagement rate</div><div class="sm-kv" data-k="ov_rate">—</div><div class="sm-ks">Engagements ÷ views</div></div>
+      <div class="sm-card sm-kpi t-plum" data-source="accounts"><div class="sm-kl">Posts &amp; videos</div><div class="sm-kv" data-k="ov_posts">—</div><div class="sm-ks">Published in the period</div></div>
+      <div class="sm-card sm-kpi t-plum" data-source="accounts"><div class="sm-kl">Views per post</div><div class="sm-kv" data-k="ov_vpp">—</div><div class="sm-ks">Views ÷ posts published</div></div>
     </div>
 
     <div class="sm-grid2">
       <section class="sm-card" id="ov-growth">
-        <h2 class="sm-h2">Audience growth</h2>
+        <div class="sm-sechead"><span class="ic">🚀</span><div><h2>Audience growth</h2></div></div>
         <p class="sm-note">Running total of net new followers since the start of the period, per account.</p>
         <div class="sm-chart" id="ov-growth-chart" data-source="daily"></div>
         <div class="sm-legend" id="ov-growth-legend"></div>
       </section>
       <section class="sm-card" id="ov-share">
-        <h2 class="sm-h2">Audience by account</h2>
+        <div class="sm-sechead"><span class="ic">👥</span><div><h2>Audience by account</h2></div></div>
         <p class="sm-note">Current followers or subscribers.</p>
         <div class="sm-chart sm-chart-short" id="ov-share-chart" data-source="accounts"></div>
       </section>
@@ -195,7 +238,7 @@ window.dash = (function () {
     <section class="sm-card" id="ov-trend">
       <div class="sm-block-head">
         <div>
-          <h2 class="sm-h2">Daily trend</h2>
+          <div class="sm-sechead"><span class="ic">📈</span><div><h2>Daily trend</h2></div></div>
           <p class="sm-note">One line per account. YouTube analytics arrive about two days late; Instagram's newest day can read zero until it settles.</p>
         </div>
         <label class="sm-inline">Metric
@@ -213,7 +256,7 @@ window.dash = (function () {
     </section>
 
     <section class="sm-card" id="ov-accounts">
-      <h2 class="sm-h2">Accounts compared</h2>
+      <div class="sm-sechead"><span class="ic">📊</span><div><h2>Accounts compared</h2></div></div>
       <p class="sm-note">Click a column to sort. Instagram counts new follows only (Meta doesn't report unfollows here); YouTube shows gained and lost.</p>
       <div class="sm-tablewrap">
         <table class="sm-table" id="accounts-table" data-source="accounts" data-row-key="id">
@@ -300,17 +343,17 @@ window.dash = (function () {
     </div>
 
     <div class="sm-kpis">
-      <div class="sm-card sm-kpi"><div class="sm-kl">Monthly revenue</div><div class="sm-kv">₹21.5L</div><div class="sm-ks">3 confirmed clients</div></div>
-      <div class="sm-card sm-kpi"><div class="sm-kl">Salary cost</div><div class="sm-kv">₹5.81L</div><div class="sm-ks">9-person team</div></div>
-      <div class="sm-card sm-kpi"><div class="sm-kl">Profit</div><div class="sm-kv">₹15.69L</div><div class="sm-ks">Before other expenses &amp; tax</div></div>
-      <div class="sm-card sm-kpi"><div class="sm-kl">Margin</div><div class="sm-kv">73.0%</div><div class="sm-ks">Revenue less salaries only</div></div>
-      <div class="sm-card sm-kpi"><div class="sm-kl">Team size</div><div class="sm-kv">9</div><div class="sm-ks">2 strategists, 5 editors, 2 designers</div></div>
-      <div class="sm-card sm-kpi"><div class="sm-kl">Pipeline</div><div class="sm-kv">₹10L</div><div class="sm-ks">CHC / Srini, quoted not closed</div></div>
+      <div class="sm-card sm-kpi t-grow"><div class="sm-kl">Monthly revenue</div><div class="sm-kv">₹21.5L</div><div class="sm-ks">3 confirmed clients</div></div>
+      <div class="sm-card sm-kpi t-ink"><div class="sm-kl">Salary cost</div><div class="sm-kv">₹5.81L</div><div class="sm-ks">9-person team</div></div>
+      <div class="sm-card sm-kpi t-grow"><div class="sm-kl">Profit</div><div class="sm-kv">₹15.69L</div><div class="sm-ks">Before other expenses &amp; tax</div></div>
+      <div class="sm-card sm-kpi t-eng"><div class="sm-kl">Margin</div><div class="sm-kv">73.0%</div><div class="sm-ks">Revenue less salaries only</div></div>
+      <div class="sm-card sm-kpi t-cool"><div class="sm-kl">Team size</div><div class="sm-kv">9</div><div class="sm-ks">2 strategists, 5 editors, 2 designers</div></div>
+      <div class="sm-card sm-kpi t-plum"><div class="sm-kl">Pipeline</div><div class="sm-kv">₹10L</div><div class="sm-ks">CHC, quoted not closed</div></div>
     </div>
 
     <div class="sm-grid2">
       <section class="sm-card">
-        <h2 class="sm-h2">October: the headline</h2>
+        <div class="sm-sechead"><span class="ic">⭐</span><div><h2>October: the headline</h2></div></div>
         <ul class="sm-ins">
           <li class="good"><span><span class="k">Biggest highlight —</span> Dr. Tarang Krishna had his strongest month on record: <b>+56,679 Instagram followers</b> (7.4% growth), 31.0M views, and the YouTube channel passed <b>100,000 subscribers</b>. Cancer-screening Reels averaged 1.0M views each and produced 210,002 shares.</span></li>
           <li class="bad"><span><span class="k">What didn't work —</span> Volume without packaging. <b>28 of 83 Reels reached under 5,000 people</b>, and the same clips were posted two or three times, with repeats reaching 1–3% of the original. Growth was front-loaded: week 1 added 25,228 followers, the final week only 6,649.</span></li>
@@ -318,14 +361,14 @@ window.dash = (function () {
         </ul>
       </section>
       <section class="sm-card">
-        <h2 class="sm-h2">Revenue by client</h2>
+        <div class="sm-sechead"><span class="ic">💰</span><div><h2>Revenue by client</h2></div></div>
         <p class="sm-note">Confirmed monthly retainers.</p>
         <div class="sm-chart sm-chart-short" id="biz-rev-chart"></div>
       </section>
     </div>
 
     <section class="sm-card">
-      <h2 class="sm-h2">Client status</h2>
+      <div class="sm-sechead"><span class="ic">🧾</span><div><h2>Client status</h2></div></div>
       <p class="sm-note">Confirmed work is separated from pipeline. Nothing below is counted as revenue until it is contracted.</p>
       <div class="sm-tablewrap"><table class="sm-table" id="biz-clients"><thead><tr>
         <th data-field="client">Client</th><th data-field="stage">Stage</th><th data-field="rev">Monthly value</th><th data-field="scope">Scope</th><th data-field="next">Next step</th>
@@ -334,7 +377,7 @@ window.dash = (function () {
 
     <div class="sm-grid2">
       <section class="sm-card">
-        <h2 class="sm-h2">Team and capacity</h2>
+        <div class="sm-sechead"><span class="ic">🧑‍💻</span><div><h2>Team and capacity</h2></div></div>
         <p class="sm-note">Nine people against three clients. Manageable today, at capacity tomorrow.</p>
         <div class="sm-tablewrap"><table class="sm-table" id="biz-team"><thead><tr>
           <th data-field="role">Role</th><th data-field="n">People</th><th data-field="note">Note</th>
@@ -342,7 +385,7 @@ window.dash = (function () {
         <p class="sm-note" style="margin-top:12px">Manish is running the Dr. Tarang account and the editing team, which frees Pravin for business growth, new clients and other departments.</p>
       </section>
       <section class="sm-card">
-        <h2 class="sm-h2">Hiring decision</h2>
+        <div class="sm-sechead"><span class="ic">⚖️</span><div><h2>Hiring decision</h2></div></div>
         <ul class="sm-ins">
           <li><span><span class="k">Decision needed now: none.</span> Hold the proposed hiring.</span></li>
           <li><span><span class="k">Trigger —</span> Hire only once one additional client is confirmed and onboarded, so incremental cost is backed by contracted revenue rather than pipeline.</span></li>
@@ -353,18 +396,64 @@ window.dash = (function () {
     </div>
 
     <section class="sm-card">
-      <h2 class="sm-h2">Top 3 priorities for November</h2>
+      <div class="sm-sechead"><span class="ic">🎯</span><div><h2>Top 3 priorities for November</h2></div></div>
       <div class="sm-dd-acc" id="biz-priorities"></div>
     </section>
 
     <section class="sm-card">
-      <h2 class="sm-h2">November targets</h2>
+      <div class="sm-sechead"><span class="ic">🏁</span><div><h2>November targets</h2></div></div>
       <ul class="sm-ins">
         <li class="good"><span><span class="k">Revenue —</span> Hold the confirmed base of <b>₹21.5L a month</b>, with upside from new onboarding.</span></li>
         <li class="good"><span><span class="k">Clients —</span> Retain and deliver strongly for all three current clients, and close and onboard <b>at least one additional client</b>.</span></li>
         <li><span><span class="k">Owner —</span> Pravin, across all three priorities.</span></li>
       </ul>
       <p class="sm-note" style="margin-top:14px">Profitability above counts client revenue and employee salaries only. It excludes operating expenses, overheads, software, production costs and tax. Client-wise cost allocation can be added if required.</p>
+    </section>
+  </section>
+
+  <!-- ================= MONTHLY REPORTS ================= -->
+  <section class="sm-page" id="monthly" role="tabpanel" hidden>
+    <div class="sm-dd-head">
+      <div>
+        <h2 class="sm-dd-title">Monthly reports</h2>
+        <p class="sm-note">One closed report per client, per month. These are snapshots taken at month end — they do not change afterwards, so a report you send today reads the same next year. The other tabs show live, still-moving numbers.</p>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <label class="sm-inline">Month <select id="f-month" class="sm-select"></select></label>
+        <label class="sm-inline">Client <select id="f-client" class="sm-select"></select></label>
+      </div>
+    </div>
+
+    <div class="sm-kpis" id="mo-kpis"></div>
+
+    <div class="sm-grid2">
+      <section class="sm-card">
+        <div class="sm-sechead"><span class="ic">↔️</span><div><h2>Month on month</h2></div></div>
+        <p class="sm-note">How this client's key numbers moved against the previous month.</p>
+        <div class="sm-tablewrap"><table class="sm-table" id="mo-mom"><thead><tr>
+          <th data-field="metric">Metric</th><th data-field="prev">Previous</th><th data-field="curr">This month</th><th data-field="chg">Change</th>
+        </tr></thead><tbody></tbody></table></div>
+      </section>
+      <section class="sm-card">
+        <div class="sm-sechead"><span class="ic">📝</span><div><h2>The month in words</h2></div></div>
+        <ul class="sm-ins" id="mo-notes"></ul>
+      </section>
+    </div>
+
+    <section class="sm-card">
+      <div class="sm-sechead"><span class="ic">🏆</span><div><h2>Top content of the month</h2></div></div>
+      <p class="sm-note">The pieces that carried the month, with links.</p>
+      <div class="sm-tablewrap"><table class="sm-table" id="mo-top"><thead><tr>
+        <th data-field="platform">Platform</th><th data-field="title">Title</th><th data-field="url">Link</th><th data-field="views">Views</th><th data-field="reach">Reach</th><th data-field="shares">Shares</th><th data-field="saves">Saves</th>
+      </tr></thead><tbody></tbody></table></div>
+    </section>
+
+    <section class="sm-card">
+      <div class="sm-sechead"><span class="ic">📋</span><div><h2>All clients this month</h2></div></div>
+      <p class="sm-note">Every client side by side, so the whole book of business reads in one view.</p>
+      <div class="sm-tablewrap"><table class="sm-table" id="mo-all"><thead><tr>
+        <th data-field="client">Client</th><th data-field="plat">Platforms</th><th data-field="aud">Audience</th><th data-field="new">New followers</th><th data-field="growth">Growth</th><th data-field="views">Views</th><th data-field="posts">Posts</th><th data-field="status">Delivery</th>
+      </tr></thead><tbody></tbody></table></div>
     </section>
   </section>
 
@@ -379,16 +468,16 @@ window.dash = (function () {
     </div>
 
     <div class="sm-kpis">
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Total audience</div><div class="sm-kv" data-k="wgs_aud">—</div><div class="sm-ks">Instagram + YouTube now</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Net new followers</div><div class="sm-kv" data-k="wgs_net">—</div><div class="sm-ks">In the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Audience growth</div><div class="sm-kv" data-k="wgs_growth">—</div><div class="sm-ks">Net new ÷ audience at start</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Instagram followers</div><div class="sm-kv" data-k="wgs_ig">—</div><div class="sm-ks">Now</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">YouTube subscribers</div><div class="sm-kv" data-k="wgs_yt">—</div><div class="sm-ks">Now</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Views</div><div class="sm-kv" data-k="wgs_views">—</div><div class="sm-ks">Both platforms, in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Engagement rate</div><div class="sm-kv" data-k="wgs_rate">—</div><div class="sm-ks">Engagements ÷ views</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Posts &amp; videos</div><div class="sm-kv" data-k="wgs_posts">—</div><div class="sm-ks">Published in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Instagram reach</div><div class="sm-kv" data-k="wgs_reach">—</div><div class="sm-ks">Accounts reached, summed daily</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">YouTube watch time</div><div class="sm-kv" data-k="wgs_hours">—</div><div class="sm-ks">Hours watched</div></div>
+      <div class="sm-card sm-kpi t-ink" data-source="accounts"><div class="sm-kl">Total audience</div><div class="sm-kv" data-k="wgs_aud">—</div><div class="sm-ks">Instagram + YouTube now</div></div>
+      <div class="sm-card sm-kpi t-grow" data-source="accounts"><div class="sm-kl">Net new followers</div><div class="sm-kv" data-k="wgs_net">—</div><div class="sm-ks">In the period</div></div>
+      <div class="sm-card sm-kpi t-grow" data-source="accounts"><div class="sm-kl">Audience growth</div><div class="sm-kv" data-k="wgs_growth">—</div><div class="sm-ks">Net new ÷ audience at start</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="accounts"><div class="sm-kl">Instagram followers</div><div class="sm-kv" data-k="wgs_ig">—</div><div class="sm-ks">Now</div></div>
+      <div class="sm-card sm-kpi t-yt" data-source="accounts"><div class="sm-kl">YouTube subscribers</div><div class="sm-kv" data-k="wgs_yt">—</div><div class="sm-ks">Now</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="accounts"><div class="sm-kl">Views</div><div class="sm-kv" data-k="wgs_views">—</div><div class="sm-ks">Both platforms, in the period</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="accounts"><div class="sm-kl">Engagement rate</div><div class="sm-kv" data-k="wgs_rate">—</div><div class="sm-ks">Engagements ÷ views</div></div>
+      <div class="sm-card sm-kpi t-ink" data-source="accounts"><div class="sm-kl">Posts &amp; videos</div><div class="sm-kv" data-k="wgs_posts">—</div><div class="sm-ks">Published in the period</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="accounts"><div class="sm-kl">Instagram reach</div><div class="sm-kv" data-k="wgs_reach">—</div><div class="sm-ks">Accounts reached, summed daily</div></div>
+      <div class="sm-card sm-kpi t-yt" data-source="accounts"><div class="sm-kl">YouTube watch time</div><div class="sm-kv" data-k="wgs_hours">—</div><div class="sm-ks">Hours watched</div></div>
     </div>
 
     <section class="sm-card">
@@ -398,7 +487,7 @@ window.dash = (function () {
     </section>
 
     <section class="sm-card">
-      <h2 class="sm-h2">What's working, what isn't</h2>
+      <div class="sm-sechead"><span class="ic">💡</span><div><h2>What's working, what isn't</h2></div></div>
       <p class="sm-note">Read automatically from this period's numbers. “Typical” means the account's median post, so each account is compared with itself. The newest posts have had less time to collect views.</p>
       <ul class="sm-ins" id="dd-ins" data-source="scored formats account_growth"></ul>
     </section>
@@ -422,7 +511,7 @@ window.dash = (function () {
     <div class="sm-latest" id="dd-latest" data-source="scored"></div>
 
     <section class="sm-card">
-      <h2 class="sm-h2">Format scorecard</h2>
+      <div class="sm-sechead"><span class="ic">🎬</span><div><h2>Format scorecard</h2></div></div>
       <p class="sm-note">Which formats pull their weight. Save rate and share rate are % of people reached (Instagram) or views (YouTube shares); Followers / 1K is new followers per 1,000 reached (Instagram) or viewed (YouTube); Instagram doesn't report follows for Reels, so that cell is blank for Reels.</p>
       <div class="sm-tablewrap"><table class="sm-table" id="dd-formats" data-source="formats" data-row-key="key"><thead><tr><th data-field="account">Account</th><th data-field="type">Format</th><th data-field="posts">Posts</th><th data-field="median_views">Typical views</th><th data-field="median_reach">Typical reach</th><th data-field="avg_views">Avg views</th><th data-field="engagement_rate">Eng. rate</th><th data-field="save_rate">Save rate</th><th data-field="share_rate">Share rate</th><th data-field="followers_per_1k">Followers / 1K</th><th data-field="avg_view_pct">Avg % viewed</th></tr></thead><tbody></tbody></table></div>
     </section>
@@ -449,7 +538,7 @@ window.dash = (function () {
     <section class="sm-card">
       <div class="sm-block-head">
         <div>
-          <h2 class="sm-h2">Every post and video, scored</h2>
+          <div class="sm-sechead"><span class="ic">🔍</span><div><h2>Every post and video, scored</h2></div></div>
           <p class="sm-note">Published in the period. Verdict: Hit = 2× typical or more; Above = 1.2×+; Typical = 0.8–1.2×; Below = under 0.8×. Click a column to sort.</p>
         </div>
         <input type="search" id="dd-search" class="sm-search" placeholder="Search titles" aria-label="Search posts">
@@ -462,15 +551,15 @@ window.dash = (function () {
   <!-- ================= INSTAGRAM ================= -->
   <section class="sm-page" id="instagram" role="tabpanel" hidden>
     <div class="sm-kpis">
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Followers</div><div class="sm-kv" data-k="ig_followers">—</div><div class="sm-ks">Now</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">New followers</div><div class="sm-kv" data-k="ig_new">—</div><div class="sm-ks">In the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Reach</div><div class="sm-kv" data-k="ig_reach">—</div><div class="sm-ks">Accounts reached, summed daily</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Views</div><div class="sm-kv" data-k="ig_views">—</div><div class="sm-ks">All content, in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Interactions</div><div class="sm-kv" data-k="ig_eng">—</div><div class="sm-ks">All interactions</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Engagement rate</div><div class="sm-kv" data-k="ig_rate">—</div><div class="sm-ks">Interactions ÷ views</div></div>
-      <div class="sm-card sm-kpi" data-source="content"><div class="sm-kl">Saves</div><div class="sm-kv" data-k="ig_saves">—</div><div class="sm-ks">On posts published in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="content"><div class="sm-kl">Shares</div><div class="sm-kv" data-k="ig_shares">—</div><div class="sm-ks">On posts published in the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Posts</div><div class="sm-kv" data-k="ig_posts">—</div><div class="sm-ks">Published in the period</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="accounts"><div class="sm-kl">Followers</div><div class="sm-kv" data-k="ig_followers">—</div><div class="sm-ks">Now</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="accounts"><div class="sm-kl">New followers</div><div class="sm-kv" data-k="ig_new">—</div><div class="sm-ks">In the period</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="accounts"><div class="sm-kl">Reach</div><div class="sm-kv" data-k="ig_reach">—</div><div class="sm-ks">Accounts reached, summed daily</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="accounts"><div class="sm-kl">Views</div><div class="sm-kv" data-k="ig_views">—</div><div class="sm-ks">All content, in the period</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="accounts"><div class="sm-kl">Interactions</div><div class="sm-kv" data-k="ig_eng">—</div><div class="sm-ks">All interactions</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="accounts"><div class="sm-kl">Engagement rate</div><div class="sm-kv" data-k="ig_rate">—</div><div class="sm-ks">Interactions ÷ views</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="content"><div class="sm-kl">Saves</div><div class="sm-kv" data-k="ig_saves">—</div><div class="sm-ks">On posts published in the period</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="content"><div class="sm-kl">Shares</div><div class="sm-kv" data-k="ig_shares">—</div><div class="sm-ks">On posts published in the period</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="accounts"><div class="sm-kl">Posts</div><div class="sm-kv" data-k="ig_posts">—</div><div class="sm-ks">Published in the period</div></div>
     </div>
 
     <section class="sm-card" id="ig-daily">
@@ -494,7 +583,7 @@ window.dash = (function () {
 
     <div class="sm-grid2">
       <section class="sm-card" id="ig-formats">
-        <h2 class="sm-h2">Which format works best</h2>
+        <div class="sm-sechead"><span class="ic">🧪</span><div><h2>Which format works best</h2></div></div>
         <p class="sm-note">Reels, carousels and images published in the period, per profile.</p>
         <div class="sm-tablewrap">
           <table class="sm-table" id="formats-table" data-source="ig_formats" data-row-key="key">
@@ -520,7 +609,7 @@ window.dash = (function () {
     </div>
 
     <section class="sm-card" id="ig-top">
-      <h2 class="sm-h2">Top 10 Instagram posts</h2>
+      <div class="sm-sechead"><span class="ic">📸</span><div><h2>Top 10 Instagram posts</h2></div></div>
       <p class="sm-note">Posts published in the period, by views.</p>
       <div class="sm-tablewrap">
         <table class="sm-table" id="ig-top-table" data-source="content" data-row-key="id">
@@ -548,18 +637,18 @@ window.dash = (function () {
   <!-- ================= YOUTUBE ================= -->
   <section class="sm-page" id="youtube" role="tabpanel" hidden>
     <div class="sm-kpis">
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Subscribers</div><div class="sm-kv" data-k="yt_subs">—</div><div class="sm-ks">Now</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Net subscribers</div><div class="sm-kv" data-k="yt_net">—</div><div class="sm-ks" data-k-sub="yt_net">Gained minus lost</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Views</div><div class="sm-kv" data-k="yt_views">—</div><div class="sm-ks">In the period</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Watch time</div><div class="sm-kv" data-k="yt_hours">—</div><div class="sm-ks">Hours watched</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Avg view duration</div><div class="sm-kv" data-k="yt_avd">—</div><div class="sm-ks">Minutes:seconds per view</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Engagements</div><div class="sm-kv" data-k="yt_eng">—</div><div class="sm-ks">Likes, comments, shares</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Engagement rate</div><div class="sm-kv" data-k="yt_rate">—</div><div class="sm-ks">Engagements ÷ views</div></div>
-      <div class="sm-card sm-kpi" data-source="accounts"><div class="sm-kl">Videos published</div><div class="sm-kv" data-k="yt_posts">—</div><div class="sm-ks">In the period</div></div>
+      <div class="sm-card sm-kpi t-yt" data-source="accounts"><div class="sm-kl">Subscribers</div><div class="sm-kv" data-k="yt_subs">—</div><div class="sm-ks">Now</div></div>
+      <div class="sm-card sm-kpi t-yt" data-source="accounts"><div class="sm-kl">Net subscribers</div><div class="sm-kv" data-k="yt_net">—</div><div class="sm-ks" data-k-sub="yt_net">Gained minus lost</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="accounts"><div class="sm-kl">Views</div><div class="sm-kv" data-k="yt_views">—</div><div class="sm-ks">In the period</div></div>
+      <div class="sm-card sm-kpi t-yt" data-source="accounts"><div class="sm-kl">Watch time</div><div class="sm-kv" data-k="yt_hours">—</div><div class="sm-ks">Hours watched</div></div>
+      <div class="sm-card sm-kpi t-yt" data-source="accounts"><div class="sm-kl">Avg view duration</div><div class="sm-kv" data-k="yt_avd">—</div><div class="sm-ks">Minutes:seconds per view</div></div>
+      <div class="sm-card sm-kpi t-yt" data-source="accounts"><div class="sm-kl">Engagements</div><div class="sm-kv" data-k="yt_eng">—</div><div class="sm-ks">Likes, comments, shares</div></div>
+      <div class="sm-card sm-kpi t-ig" data-source="accounts"><div class="sm-kl">Engagement rate</div><div class="sm-kv" data-k="yt_rate">—</div><div class="sm-ks">Engagements ÷ views</div></div>
+      <div class="sm-card sm-kpi t-yt" data-source="accounts"><div class="sm-kl">Videos published</div><div class="sm-kv" data-k="yt_posts">—</div><div class="sm-ks">In the period</div></div>
     </div>
 
     <section class="sm-card" id="yt-subs">
-      <h2 class="sm-h2">Subscribers gained and lost per day</h2>
+      <div class="sm-sechead"><span class="ic">📶</span><div><h2>Subscribers gained and lost per day</h2></div></div>
       <p class="sm-note">Solid line: gained. Dashed line: lost.</p>
       <div class="sm-chart" id="yt-subs-chart" data-source="daily"></div>
       <div class="sm-legend" id="yt-subs-legend"></div>
@@ -584,7 +673,7 @@ window.dash = (function () {
     </section>
 
     <section class="sm-card" id="yt-top">
-      <h2 class="sm-h2">Top 10 YouTube videos</h2>
+      <div class="sm-sechead"><span class="ic">▶️</span><div><h2>Top 10 YouTube videos</h2></div></div>
       <p class="sm-note">By views earned in the period, including older videos still getting views. Average % viewed and average view duration show retention. YouTube doesn't share thumbnail click-through rate or impressions through this connection.</p>
       <div class="sm-tablewrap">
         <table class="sm-table" id="yt-top-table" data-source="content" data-row-key="id">
@@ -613,7 +702,7 @@ window.dash = (function () {
     <section class="sm-card" id="content-section">
       <div class="sm-block-head">
         <div>
-          <h2 class="sm-h2">All posts and videos</h2>
+          <div class="sm-sechead"><span class="ic">🎞️</span><div><h2>All posts and videos</h2></div></div>
           <p class="sm-note">Instagram posts published in the period, and YouTube videos published in it or among each channel's ten most-viewed in it. Click a column to sort.</p>
         </div>
         <input type="search" id="content-search" class="sm-search" placeholder="Search titles" aria-label="Search content">
@@ -649,39 +738,40 @@ window.dash = (function () {
 </div>
 
 <style>
-  .sm { font-family: var(--font-anthropic-sans); display: flex; flex-direction: column; gap: var(--cds-gap-md); }
-  .sm-page { display: flex; flex-direction: column; gap: var(--cds-gap-md); }
+  .sm { font-family: var(--font-anthropic-sans); display: flex; flex-direction: column; gap: 1.5rem; }
+  .sm-page { display: flex; flex-direction: column; gap: 1.5rem; }
   .sm-page[hidden] { display: none; }
   .sm-head { display: flex; flex-direction: column; gap: 4px; }
-  .sm-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; }
-  .sm-takeaway { margin: 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-body); }
-  .sm-h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0 0 4px; }
+  .sm-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: 2.1rem; margin: 0; letter-spacing: -.02em; }
+  .sm-takeaway { margin: 0; color: var(--color-fg-muted); font-size: 1rem; line-height: 1.5; }
+  .sm-h2 { font-size: 1.2rem; font-weight: var(--cds-font-weight-medium); margin: 0 0 6px; letter-spacing: -.01em; }
   .sm-sec { margin: var(--cds-gap-sm) 0 0; }
-  .sm-note { margin: 0 0 var(--cds-gap-sm); color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .sm-note { margin: 0 0 1rem; color: var(--color-fg-muted); font-size: 0.875rem; line-height: 1.5; }
   .sm-foot { margin: 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
-  .sm-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); min-width: 0; }
+  .sm-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: 14px; padding: 1.4rem 1.5rem; min-width: 0; }
 
-  .sm-filters { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--cds-gap-md); padding: var(--cds-pad-md); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-panel); }
+  .sm-filters { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1.25rem; padding: 1.1rem 1.25rem; border: 1px solid var(--color-border-line); border-radius: 14px; background: var(--color-panel); }
   .sm-fgroup { display: flex; flex-direction: column; gap: 4px; }
   .sm-flabel { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
   .sm-checks { display: flex; flex-wrap: wrap; gap: 6px; }
-  .sm-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border: 1px solid var(--color-border-line); border-radius: 999px; font-size: var(--cds-font-size-caption); cursor: pointer; user-select: none; }
+  .sm-chip { display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px; border: 1px solid var(--color-border-line); border-radius: 999px; font-size: 0.875rem; cursor: pointer; user-select: none; }
   .sm-chip input { margin: 0; accent-color: var(--color-fg); }
   .sm-select, .sm-search { font: inherit; font-size: var(--cds-font-size-caption); padding: 5px 8px; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg); color: var(--color-fg); }
   .sm-search { min-width: min(100%, 14rem); }
   .sm-btn { font: inherit; font-size: var(--cds-font-size-caption); padding: 5px 12px; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg); color: var(--color-fg); cursor: pointer; }
   .sm-inline { display: inline-flex; align-items: center; gap: 6px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
 
-  .sm-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--color-border-line); overflow-x: auto; }
-  .sm-tabs button { font: inherit; font-size: var(--cds-font-size-body); background: none; border: none; border-bottom: 2px solid transparent; padding: 8px 12px; color: var(--color-fg-muted); cursor: pointer; white-space: nowrap; }
-  .sm-tabs button[aria-selected="true"] { color: var(--color-fg); border-bottom-color: var(--color-fg); font-weight: var(--cds-font-weight-medium); }
+  .sm-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 6px; background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: 14px; scrollbar-width: thin; }
+  .sm-tabs button { font: inherit; font-size: 1rem; background: none; border: none; border-radius: 10px; padding: 13px 22px; color: var(--color-fg-muted); cursor: pointer; white-space: nowrap; font-weight: var(--cds-font-weight-medium); transition: background .15s, color .15s; }
+  .sm-tabs button:hover { background: color-mix(in srgb, var(--color-fg) 6%, transparent); color: var(--color-fg); }
+  .sm-tabs button[aria-selected="true"] { background: var(--color-fg); color: var(--color-bg); }
 
-  .sm-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10.5rem), 1fr)); gap: var(--cds-gap-md); }
-  .sm-kpi { display: flex; flex-direction: column; gap: 2px; }
-  .sm-kl { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
-  .sm-kv { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; min-height: 1.2em; }
-  .sm-ks { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
-  .sm-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: var(--cds-gap-md); }
+  .sm-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 1rem; }
+  .sm-kpi { display: flex; flex-direction: column; gap: 4px; padding: 1.25rem 1.35rem; }
+  .sm-kl { font-size: 0.8rem; color: var(--color-fg-muted); text-transform: uppercase; letter-spacing: .05em; font-weight: var(--cds-font-weight-medium); }
+  .sm-kv { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: 2rem; font-variant-numeric: tabular-nums; min-height: 1.2em; line-height: 1.15; letter-spacing: -.02em; }
+  .sm-ks { font-size: 0.8rem; color: var(--color-fg-muted); line-height: 1.4; }
+  .sm-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 1.25rem; }
 
   .sm-block-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: var(--cds-gap-sm); }
   .sm-chart { position: relative; min-height: 280px; }
@@ -701,8 +791,8 @@ window.dash = (function () {
 
   .sm-tablewrap { overflow: auto; max-height: 32rem; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg); }
   .sm-tall { max-height: 42rem; }
-  .sm-table { width: 100%; border-collapse: separate; border-spacing: 0; font-variant-numeric: tabular-nums; font-size: var(--cds-font-size-caption); }
-  .sm-table th, .sm-table td { text-align: right; padding: 10px 12px; border-bottom: 1px solid var(--color-border-line); border-right: 1px solid var(--color-border-line); white-space: nowrap; vertical-align: middle; }
+  .sm-table { width: 100%; border-collapse: separate; border-spacing: 0; font-variant-numeric: tabular-nums; font-size: 0.9rem; }
+  .sm-table th, .sm-table td { text-align: right; padding: 13px 15px; border-bottom: 1px solid var(--color-border-line); border-right: 1px solid var(--color-border-line); white-space: nowrap; vertical-align: middle; }
   .sm-table th:last-child, .sm-table td:last-child { border-right: none; }
   .sm-table tbody tr:last-child td { border-bottom: none; }
   .sm-table thead th { position: sticky; top: 0; z-index: 2; background: var(--color-panel); font-weight: var(--cds-font-weight-medium); color: var(--color-fg); border-bottom: 2px solid var(--color-border-line); }
@@ -1034,7 +1124,7 @@ window.dash = (function () {
   (function () {
     const CLIENTS = ['Sandeep Das', 'Dr. Tarang Krishna', 'Ajith Karimpana', 'CoinDCX', 'World Governments Summit'];
     const PLATFORMS = ['Instagram', 'YouTube'];
-    const TABS = ['overview', 'growth', 'business', 'wgs', 'instagram', 'youtube', 'content'];
+    const TABS = ['overview', 'growth', 'business', 'monthly', 'wgs', 'instagram', 'youtube', 'content'];
     const RANGE_LABEL = { last_7d: 'last 7 days', last_14d: 'last 14 days', last_30d: 'last 30 days' };
     const ACCOUNT_IDS = ['sandeep-ig', 'sandeep-yt', 'tarang-ig', 'tarang-yt', 'ajith-ig', 'coindcx-yt', 'wgs-ig', 'wgs-yt'];
     const CLIENT_COLOR = { 'Sandeep Das': 0, 'Dr. Tarang Krishna': 2, 'Ajith Karimpana': 4, CoinDCX: 5, 'World Governments Summit': 7 };
@@ -1301,6 +1391,17 @@ window.dash = (function () {
       });
     }
     function setKpi(key, text) { const el = document.querySelector('[data-k="' + key + '"]'); if (el) { el.classList.remove('dash-skeleton'); el.textContent = text; } }
+    function setDelta(key, frac) {
+      const el = document.querySelector('[data-k="' + key + '"]');
+      if (!el) return;
+      const card = el.closest('.sm-kpi');
+      if (!card) return;
+      let d = card.querySelector('.sm-delta');
+      if (frac === null || frac === undefined || !isFinite(frac)) { if (d) d.remove(); return; }
+      if (!d) { d = document.createElement('div'); d.className = 'sm-delta'; card.append(d); }
+      const up = frac >= 0;
+      d.textContent = (up ? '▲ ' : '▼ ') + fmtPct(Math.abs(frac)) + ' vs first half';
+    }
     function kpiState(page, status) {
       document.querySelectorAll('#' + page + ' .sm-kv').forEach((el) => { el.textContent = '—'; el.classList.toggle('dash-skeleton', status === 'loading'); });
     }
@@ -1358,6 +1459,19 @@ window.dash = (function () {
         setKpi('ov_rate', views ? fmtPct(eng / views) : '—');
         setKpi('ov_posts', rows.length ? fmtInt(posts) : '—');
         setKpi('ov_vpp', posts ? fmtBig(views / posts) : '—');
+        // movement indicators: second half of the period vs the first half
+        const dd = dash.data('daily');
+        if (dd.status === 'ok') {
+          const mine = dd.data.filter(picked);
+          const days = Array.from(new Set(mine.map((r) => r.date))).sort();
+          const half = Math.floor(days.length / 2);
+          const firstDays = new Set(days.slice(0, half)), lastDays = new Set(days.slice(days.length - half));
+          const sumOver = (set, f) => mine.filter((r) => set.has(r.date)).reduce((t, r) => t + (Number(r[f]) || 0), 0);
+          const pct = (f) => { const a = sumOver(firstDays, f), b = sumOver(lastDays, f); return a > 0 ? (b - a) / a : null; };
+          setDelta('ov_net', pct('net_followers'));
+          setDelta('ov_views', pct('views'));
+          setDelta('ov_eng', pct('engagements'));
+        }
         drawBars('ov-share-chart', rows.slice().sort((x, y) => y.followers - x.followers).map((r) => ({ label: r.account, value: r.followers, color: colorOf(r.id) })), fmtBig);
         markSort(accTable, 'data-sort', accSort);
         fillTable(accTable, sorter(rows, accSort.key, accSort.dir), ACC_COLS, (r) => r.id);
@@ -1808,19 +1922,19 @@ window.dash = (function () {
 
 
     // ---------- Business ----------
-    const BIZ_REV=[['Dr. Krishna Cancer Healer / Dr. Tarang',1000000],['Furlenco / Ajith Karimpana',600000],['CoinDCX',550000]];
+    const BIZ_REV=[['Dr. Tarang Krishna',1000000],['Furlenco / Ajith Karimpana',600000],['CoinDCX',550000]];
     const BIZ_CLIENTS=[
-      ['Dr. Krishna Cancer Healer / Dr. Tarang','Confirmed','₹10,00,000','Instagram + YouTube, full service','Sustain October momentum; rebuild the screening series'],
-      ['Furlenco / Ajith Karimpana','Confirmed','₹6,00,000','Personal branding, short-form now, long-form from 10 Nov','Resolve Instagram mobile login — blocking delivery'],
+      ['Dr. Tarang Krishna','Confirmed','₹10,00,000','Instagram + YouTube, full service','Sustain October momentum; rebuild the screening series'],
+      ['Furlenco / Ajith Karimpana','Confirmed','₹6,00,000','Personal branding, short-form now, long-form from 10 Nov','Instagram mobile login still broken; Meta not responding'],
       ['CoinDCX','Confirmed','₹5,50,000','YouTube Shorts','Continue; review Shorts conversion'],
       ['World Government Summit','Confirmed','—','Instagram + YouTube growth','Priority 1 for November — full strategy now built'],
-      ['CHC / Srini','Prospect — strongly advanced','₹10,00,000 quoted','Instagram + YouTube strategy agreed our side','Final call with Targan, then formal scope confirmation and onboarding'],
+      ['CHC (Cancer Healer Center)','Prospect — strongly advanced','₹10,00,000 quoted','Instagram + YouTube strategy agreed from our side','Final call, then formal scope confirmation and onboarding'],
       ['Dr. Velumani','Prospect — awaiting decision','To be confirmed','Proposal shared, discussions progressed well','He reverts with a final decision this week'],
       ['Dimple','Closed — not proceeding','—','Not aligned on commercials','No further action']];
     const BIZ_TEAM=[['Strategists',2,'Includes Pravin'],['Short-form editors',3,''],['Long-form editors',2,'Scaling up for Furlenco long-form'],['Graphic designers',2,''],['Total',9,'Against 3 confirmed retainer clients']];
     const BIZ_PRIO=[
       ['01','Grow World Government Summit','Build the page with a stronger content, distribution and audience-growth strategy. Research, speaker-run calendar, 55 quote Reels, 48 viral cuts, 50 carousel/static/story ideas and a YouTube long-form plan are all now built and ready to execute.','Pravin','Through November','None'],
-      ['02','Furlenco long-form','Start and scale long-form while continuing to build momentum through short-form.','Pravin','Rollout from 10 November','Cannot log in to Furlenco\u2019s Instagram on mobile — account access support needed'],
+      ['02','Furlenco long-form','Start and scale long-form while continuing to build momentum through short-form.','Pravin','Rollout from 10 November','Cannot log in to Furlenco\u2019s Instagram on mobile. We have raised it with Meta and have had no response. Escalation or a Meta contact would help.'],
       ['03','New client onboarding','Convert the active pipeline into at least one additional confirmed client and begin onboarding during November.','Pravin','During November','CHC/Srini waiting on the Targan call; Dr. Velumani reverting this week']];
 
     function drawBusiness(){
@@ -1862,6 +1976,126 @@ window.dash = (function () {
         return c; }));
     }
 
+
+    // ---------- Monthly reports ----------
+    // Closed month-end snapshots. Add a new month by appending to MONTHS and MO.
+    const MONTHS=['October 2026'];
+    const MO={
+     'October 2026':{
+      'Dr. Tarang Krishna':{
+        platforms:'Instagram + YouTube',
+        kpis:[['Instagram followers','826,371','+56,679 in October'],['Instagram views','31.0M','20.7M accounts reached'],['Engagement rate','13.6%','Interactions ÷ views'],['YouTube subscribers','104,000','+5,329 net'],['YouTube views','3.11M','29,798 hours watched'],['Posts published','90','83 Reels, 7 carousels']],
+        mom:[['Instagram followers','769,692','826,371','+56,679 (+7.4%)','up'],['Instagram views','—','31.0M','First full month tracked','flat'],['YouTube subscribers','98,671','104,000','+5,329 (+5.4%)','up'],['YouTube views','—','3.11M','First full month tracked','flat'],['Posts published','—','90','Baseline for November','flat']],
+        notes:[['good','Record month. Cancer-screening Reels averaged 1.0M views each and produced 210,002 shares — the clearest growth engine on the account.'],
+               ['good','YouTube passed 100,000 subscribers. Long-form delivered 68% of net new subscribers and 70% of watch time from only 45% of views.'],
+               ['bad','Growth was front-loaded: 25,228 followers in week 1 against 6,649 in the final week, a 74% fall as the viral Reels aged out.'],
+               ['bad','28 of 83 Reels reached under 5,000 people, and several clips were posted two or three times. Repeats reached 1–3% of the original.'],
+               ['','November focus: rebuild the screening series, cut volume from 90 posts to about 45, stop duplicate posting, hold two long videos a week.']],
+        top:[['Instagram',"Don't wait — get these cancer tests done",'https://www.instagram.com/reel/DeMW3c8hAUM/','2,622,059','2,250,464','149,117','114,968'],
+             ['Instagram','This is how stress reacts','https://www.instagram.com/reel/DeHV-13IJAG/','2,082,038','1,657,981','47,280','31,078'],
+             ['Instagram','Best anti-cancer herbs','https://www.instagram.com/reel/DeEk92xoRQe/','1,914,443','1,407,103','64,250','66,117'],
+             ['Instagram','This habit can gift you death (plastic)','https://www.instagram.com/reel/DeByoxUI6pK/','1,250,887','967,128','57,902','7,110'],
+             ['Instagram','5 cancer-risk foods you should know','https://www.instagram.com/reel/DeJ5zkZIpOn/','1,040,690','791,911','34,614','5,828']]
+      },
+      'Ajith Karimpana / Furlenco':{
+        platforms:'Instagram',
+        kpis:[['Instagram followers','2,571','+307 in the period'],['Instagram views','876,244','740,315 reached'],['Engagement rate','7.9%','Interactions ÷ views'],['Posts published','18','Short-form only'],['Best post','373,290 views','"Never regret your past decisions"'],['Long-form','From 10 Nov','Rollout scheduled']],
+        mom:[['Instagram followers','2,264','2,571','+307 (+13.6%)','up'],['Instagram views','—','876,244','First full month tracked','flat'],['Posts published','—','18','Baseline for November','flat']],
+        notes:[['good','Fastest percentage growth of any account at +13.6%, from a small base. One Reel did 373,290 views, far above the rest.'],
+               ['','Short-form is still building momentum before long-form begins on 10 November.'],
+               ['bad','Blocked: we cannot log in to the Instagram account on mobile. Raised with Meta, no response so far. A Meta contact or escalation would unblock it.'],
+               ['','November focus: launch long-form from 10 November while keeping short-form cadence.']],
+        top:[['Instagram','Never regret your past decisions','','373,290','313,902','4,007','6,439'],
+             ['Instagram','Furlenco founding story','','53,729','31,402','8','14'],
+             ['Instagram','Not everyone deserves unlimited access','','20,266','16,436','41','78']]
+      },
+      'CoinDCX':{
+        platforms:'YouTube Shorts',
+        kpis:[['YouTube subscribers','207,000','Channel-wide'],['Shorts views','54,134','In the period'],['Engagement rate','2.3%','Engagements ÷ views'],['Shorts published','29','In the period'],['Net subscribers','+96','Credited to Shorts'],['Watch time','234 h','From Shorts']],
+        mom:[['Shorts views','—','54,134','First full month tracked','flat'],['Net subscribers from Shorts','—','+96','Baseline for November','flat'],['Shorts published','—','29','Baseline for November','flat']],
+        notes:[['','Scope is YouTube Shorts only. Subscriber figures are channel-wide; the numbers above count what YouTube credits to Shorts.'],
+               ['bad','Shorts bring views but very few subscribers — 96 net across the month. This is normal for Shorts, but worth setting expectations on.'],
+               ['','November focus: continue the current cadence and review whether Shorts should feed long-form.']],
+        top:[['YouTube','60-Second Dow Theory Strategy for Intraday Traders','https://youtu.be/uRhQ7t4XOAw','1,601','—','9','—'],
+             ['YouTube','Retail vs Institutions: This Week in Crypto','https://youtu.be/AgPy6bcMQvQ','1,073','—','3','—'],
+             ['YouTube','Wall Street Festival S3','https://youtu.be/-X-UEvWiJ7o','960','—','6','—']]
+      },
+      'World Governments Summit':{
+        platforms:'Instagram + YouTube',
+        kpis:[['Instagram followers','271,068','About +13,800 in 30 days'],['Instagram views','Spike-led','Two Reels drove most of it'],['YouTube subscribers','385,000','4,505 videos in the archive'],['Best Reel','385,000 views','+4,200 followers in 2 days'],['Reels published','80','In 30 days'],['Target','325K by Dec','Needs ~890 a day']],
+        mom:[['Instagram followers','257,268','271,068','+13,800 (+5.4%)','up'],['Reels published','—','80','Too high for the return','flat'],['Median Reel views','—','2,551','0.9% of followers — the core problem','down']],
+        notes:[['good','Two Reels carried the month: the pocket-MRI question (385,000 views, +4,200 followers in 2 days) and the Musk 2017 prediction (185,000 + 106,000).'],
+               ['bad','The floor is the problem, not the ceiling. The median Reel reaches 0.9% of followers; Big Think, at twice the size, reaches 16%.'],
+               ['bad','80 Reels in 30 days, with several duplicates. Volume is not converting into reach.'],
+               ['','November focus: speaker-run calendar, cut to about 30 main-feed Reels, test the rest as Trial Reels, and apply the title-card formula to every post.']],
+        top:[['Instagram','Could full-body imaging fit in a doctor\u2019s palm?','','385,000','—','—','—'],
+             ['Instagram','In 2017, Elon Musk gave the world a deadline','','185,000','—','—','—'],
+             ['Instagram','Elon Musk prediction (second post)','','106,000','—','—','—']]
+      }
+     }
+    };
+    const MO_ALL={'October 2026':[
+      ['Dr. Tarang Krishna','Instagram + YouTube','930,371','+62,008','+7.1%','34.1M','90','On track'],
+      ['World Governments Summit','Instagram + YouTube','656,068','+13,800','+5.4%','Spike-led','80','Needs new strategy'],
+      ['CoinDCX','YouTube Shorts','207,000','+96','+0.05%','54,134','29','On track'],
+      ['Ajith Karimpana / Furlenco','Instagram','2,571','+307','+13.6%','876,244','18','Blocked on login']]};
+
+    const fMonth=document.getElementById('f-month'), fClient=document.getElementById('f-client');
+    fMonth.replaceChildren(...MONTHS.map((m)=>{const o=document.createElement('option');o.value=m;o.textContent=m;return o;}));
+    function syncClients(){
+      const m=fMonth.value||MONTHS[0];
+      const names=Object.keys(MO[m]||{});
+      const keep=fClient.value;
+      fClient.replaceChildren(...names.map((n)=>{const o=document.createElement('option');o.value=n;o.textContent=n;return o;}));
+      if(names.includes(keep)) fClient.value=keep;
+    }
+    syncClients();
+    fMonth.addEventListener('change',()=>{syncClients();drawMonthly();});
+    fClient.addEventListener('change',drawMonthly);
+
+    function drawMonthly(){
+      const m=fMonth.value||MONTHS[0];
+      const c=fClient.value||Object.keys(MO[m])[0];
+      const d=(MO[m]||{})[c];
+      const kp=document.getElementById('mo-kpis');
+      const mom=document.querySelector('#mo-mom tbody');
+      const nt=document.getElementById('mo-notes');
+      const tp=document.querySelector('#mo-top tbody');
+      const al=document.querySelector('#mo-all tbody');
+      if(!d){ kp.replaceChildren(); mom.replaceChildren(); nt.replaceChildren(); tp.replaceChildren(); return; }
+      kp.replaceChildren(...d.kpis.map((k)=>{
+        const card=document.createElement('div'); card.className='sm-card sm-kpi';
+        const l=document.createElement('div'); l.className='sm-kl'; l.textContent=k[0];
+        const v=document.createElement('div'); v.className='sm-kv'; v.textContent=k[1];
+        const sub=document.createElement('div'); sub.className='sm-ks'; sub.textContent=k[2];
+        card.append(l,v,sub); return card; }));
+      mom.replaceChildren(...d.mom.map((r)=>{
+        const tr=document.createElement('tr');
+        r.slice(0,4).forEach((v,i)=>{ const td=document.createElement('td'); td.textContent=v;
+          if(i===0) td.className='l';
+          if(i===3&&r[4]==='up') td.style.color='var(--color-ok)';
+          if(i===3&&r[4]==='down') td.style.color='var(--color-bad)';
+          tr.append(td); });
+        return tr; }));
+      nt.replaceChildren(...d.notes.map((n)=>{
+        const li=document.createElement('li'); li.className=n[0];
+        const sp=document.createElement('span'); sp.textContent=n[1]; li.append(sp); return li; }));
+      tp.replaceChildren(...d.top.map((r)=>{
+        const tr=document.createElement('tr');
+        [0,1,2,3,4,5,6].forEach((i)=>{ const td=document.createElement('td');
+          if(i===2){ td.className='l'; if(r[2]){ const a=document.createElement('a'); a.href=r[2]; a.target='_blank'; a.rel='noopener noreferrer'; a.className='sm-link'; a.textContent=r[0]==='Instagram'?'Open post ↗':'Watch ↗'; td.append(a); } else td.textContent='—'; }
+          else { td.textContent=r[i]; if(i===0) td.className='l'; if(i===1) td.className='t'; }
+          tr.append(td); });
+        return tr; }));
+      al.replaceChildren(...(MO_ALL[m]||[]).map((r)=>{
+        const tr=document.createElement('tr');
+        r.forEach((v,i)=>{ const td=document.createElement('td');
+          if(i===7){ const b=document.createElement('span'); b.className='sm-verdict '+(v==='On track'?'v-hit':v==='Blocked on login'?'v-below':'v-typical'); b.textContent=v; td.append(b); td.className='l'; }
+          else { td.textContent=v; if(i<=1) td.className='l'; }
+          tr.append(td); });
+        return tr; }));
+    }
+
     // ---------- All content ----------
     const CON_COLS = ['client', 'platform', 'type', 'url', 'title', 'published', 'views', 'reach', 'likes', 'comments', 'shares', 'saves', 'engagement_rate', 'new_followers', 'avg_view_pct', 'avg_view_duration'];
     const conSort = { key: 'views', dir: 'desc' };
@@ -1894,6 +2128,7 @@ window.dash = (function () {
       if (tab === 'overview') drawOverview();
       else if (tab === 'growth') drawGrowth();
       else if (tab === 'business') drawBusiness();
+      else if (tab === 'monthly') drawMonthly();
       else if (tab === 'wgs') drawWGS();
       else if (tab === 'instagram') drawInstagram();
       else if (tab === 'youtube') drawYouTube();
