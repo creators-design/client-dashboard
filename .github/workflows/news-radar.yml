@@ -1,0 +1,39 @@
+name: WGS news radar
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Find today's stories
+        run: python news_watch.py
+
+      - name: Post the digest (GitHub emails it to you)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "WGS news radar — $(TZ=Asia/Kolkata date +'%d %b %Y')" \
+            --body-file news.md
+
+      - name: Save news.json for the dashboard
+        run: |
+          git config user.name "dashboard-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add news.json
+          git diff --cached --quiet || git commit -m "News radar $(date -u +%F)"
+          git push
